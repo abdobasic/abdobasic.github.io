@@ -36,6 +36,15 @@
 
 4. **ثنائية اللغة الفورية:** كل نص أو قسم (شاملاً شريط التطبيق السفلي في الجوال) **يجب** أن يعمل باللغتين **العربية (`RTL`)** و**الإنجليزية (`LTR`)** عبر زر التبديل الفوري دون إعادة تحميل الصفحة.
 
+5. **التتبع التحليلي عبر Microsoft Clarity (`zi8vi654df`):**
+   * يوجد كود التتبع الرسمي لـ **Microsoft Clarity** (معرّف المشروع `zi8vi654df`) داخل وسم `<head>` في `index.html` مباشرة قبل تحميل الصور المسبقة والخطوط والملفات الخارجية، ويجب الحفاظ عليه دون حذف أو تأخير.
+   * تعمل الدالة المساعدة الآمنة `trackClarity` ووظيفة `initClarityTracking` على تسجيل التفاعلات التنفيذية التالية تلقائياً عبر `window.clarity`:
+     * الضغط على أي رابط واتساب (`wa.me`) ← `clarity("event", "whatsapp_click")`.
+     * الضغط على زر الاتصال الهاتفي (`tel:`) ← `clarity("event", "phone_call_click")`.
+     * فتح نافذة السيرة الذاتية (`openCvModal`) أو تحميل `Abdullah_Rashad_CV.pdf` ← `clarity("event", "cv_view_or_download")`.
+     * فتح أي دراسة حالة في `openCaseDrawer(caseId)` ← `clarity("set", "opened_case_study", caseId)` و`clarity("event", "case_study_open")`.
+     * تبديل اللغة (`toggleLanguage`) وعند التحميل الأولي ← `clarity("set", "active_language", lang)`.
+
 ## 3. البيانات الثابتة والقيود التحريرية المعتمدة (Immutable Facts)
 
 ### أ. الهوية والتواجد وأرقام التواصل

@@ -10,6 +10,15 @@
     <title>عبد الله رشاد | Abdullah Rashad — Marketing Director & Growth Architect</title>
     <meta name="description" content="عبد الله رشاد — مدير تسويق واستشاري نمو وتأسيس فرق التسويق بخبرة +15 عاماً في مصر، السعودية، الخليج، وعالمياً (On-Site أو عن بُعد).">
 
+    <!-- Microsoft Clarity -->
+    <script type="text/javascript">
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "zi8vi654df");
+    </script>
+
     <!-- Responsive Preload: Mobile Direct-Gaze vs Desktop Eye-Tracking Portraits -->
     <link rel="preload" as="image" href="Mobile_profile.jpg" media="(max-width: 1023px)">
     <link rel="preload" as="image" href="profile.jpg" media="(min-width: 1024px)">
@@ -2358,6 +2367,8 @@
             populateCaseDrawer(caseId);
             document.getElementById('case-drawer').classList.remove('hidden');
             document.body.style.overflow = 'hidden';
+            trackClarity('set', 'opened_case_study', caseId);
+            trackClarity('event', 'case_study_open');
         }
 
         function closeCaseDrawer() {
@@ -2415,6 +2426,7 @@
             m.classList.remove('hidden');
             m.classList.add('flex');
             document.body.style.overflow = 'hidden';
+            trackClarity('event', 'cv_view_or_download');
         }
 
         function closeCvModal() {
@@ -2471,6 +2483,7 @@
         function toggleLanguage() {
             lang = lang === 'ar' ? 'en' : 'ar';
             renderHub();
+            trackClarity('set', 'active_language', lang);
         }
 
         function showToast(message) {
@@ -2584,6 +2597,31 @@
             }
         }
 
+        function trackClarity(command, ...args) {
+            try {
+                if (typeof window.clarity === 'function') {
+                    window.clarity(command, ...args);
+                }
+            } catch (e) {}
+        }
+
+        function initClarityTracking() {
+            trackClarity('set', 'active_language', lang);
+
+            document.addEventListener('click', (e) => {
+                const anchor = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+                if (!anchor) return;
+                const href = (anchor.getAttribute('href') || '').trim().toLowerCase();
+                if (href.includes('wa.me/') || href.includes('api.whatsapp.com')) {
+                    trackClarity('event', 'whatsapp_click');
+                } else if (href.startsWith('tel:')) {
+                    trackClarity('event', 'phone_call_click');
+                } else if (href.includes('abdullah_rashad_cv.pdf') || href.endsWith('.pdf')) {
+                    trackClarity('event', 'cv_view_or_download');
+                }
+            });
+        }
+
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 closeCaseDrawer();
@@ -2609,6 +2647,7 @@
             applyTheme(initialTheme);
             renderHub();
             initInteractivePhysics();
+            initClarityTracking();
         });
     </script>
 </body>
