@@ -7,10 +7,10 @@
 ## 1. البنية المعمارية للمستودع والنشر (Architecture & Deployment Rules)
 
 * **المستودع المستهدف:** `abdobasic/abdobasic.github.io` (يُنشر مباشرة عبر **GitHub Pages** من الفرع `main` والمسار الجذري `/ (root)`).
-* **النسخة المعتمدة من `index.html`:** النسخة الكاملة ذات حجم `~314 KB` المبنية بطراز **Pastel Manipulation Minimalist Design System**، والتي تتضمن محاكي النمو التفاعلي (`#simulator`) ومنصة الـ 3D التفاعلية بالصورة المفرغة عالية الدقة المضمّنة بصيغة `Base64 WebP`. **(يُمنع استبدالها بأي ملف مسودة قديم مثل `code_artifact.html`)**.
+* **النسخة المعتمدة من `index.html`:** النسخة الكاملة المبنية بطراز **Pastel Minimalist Design System** (المطوّرة من نسخة `314 KB` المعتمدة)، والتي تتضمن محاكي النمو التفاعلي (`#simulator`) وبطاقة الصورة الشخصية الرسمية النظيفة بكامل الكادر من `profile.jpg` (`object-cover object-top`) دون طبقات 3D أو كبسولات عائمة أو حركة ميلان، وتفتح افتراضياً على الوضع الداكن (`data-theme="dark"`) والمزاج اللوني البيبي بلو (`data-palette="sky"`). **(يُمنع استبدالها بأي ملف مسودة قديم مثل `code_artifact.html`)**.
 * **الملفات الأساسية المعتمدة في جذر المستودع:**
-  1. `index.html` — الكود الكامل للمنصة ثنائية اللغة (شامل الصور المضمّنة + زر تحميل `Abdullah_Rashad_CV.pdf` داخل نافذة السيرة الذاتية `#cv-modal`).
-  2. `profile.jpg` — الصورة الشخصية الرسمية لعبد الله رشاد (تُحفظ في الجذر لاستخدامها في بطاقات المعاينة الاجتماعية OpenGraph / LinkedIn).
+  1. `index.html` — الكود الكامل للمنصة ثنائية اللغة (مع ربط الصورة الرسمية `profile.jpg` بكامل الكادر + زر تحميل `Abdullah_Rashad_CV.pdf` داخل نافذة السيرة الذاتية `#cv-modal`).
+  2. `profile.jpg` — الصورة الشخصية الرسمية الكاملة لعبد الله رشاد (تُعرض في بطاقة الهيرو الرئيسية وتُستخدم أيضاً في بطاقات المعاينة الاجتماعية OpenGraph / LinkedIn).
   3. `Abdullah_Rashad_CV.pdf` — النسخة الرسمية للسيرة الذاتية القابلة للتحميل المباشر من داخل `#cv-modal`.
   4. `AGENTS.md` — ملف القواعد والمرجعية ولوحة المهام.
   5. `.gitignore` — لاستبعاد الملفات المؤقتة والمسودات المحلية (مثل `code_artifact.html` أو ملفات الصور والـ PDF ذات الأسماء غير القياسية).
@@ -19,9 +19,9 @@
 
 ## 2. القيود التصميمية والتقنية الصارمة (Non-Negotiable UI/UX Guardrails)
 
-1. **الهوية البصرية المعتمدة:** طراز **Pastel Manipulation Minimalist** مع 4 تناغمات لونية تفاعلية (`sage`, `lavender`, `peach`, `sky`)، ومنصة صورة شخصية ثلاثية الأبعاد (`3D Pastel Manipulation` / `Minimal Studio`) بصورة مفرغة مضمّنة `Base64 WebP`، ومساحات بيضاء مريحة للعين ونظام الإفصاح التدريجي عبر درج القراءة الجانبي (`Slide-Over Drawer`) المزود بالتنقل (`السابق / التالي`).
+1. **الهوية البصرية المعتمدة:** طراز **Pastel Minimalist** مع 4 تناغمات لونية تفاعلية (`sky` الافتراضي، `sage`, `lavender`, `peach`)، وبطاقة صورة شخصية رسمية نظيفة تعرض `profile.jpg` بكامل الكادر (`object-cover object-top`) دون أي عناصر 3D أو كبسولات عائمة أو مدار دوار أو زر رفع صورة أو حركة ميلان بالماوس، مع مساحات مريحة للعين ونظام الإفصاح التدريجي عبر درج القراءة الجانبي (`Slide-Over Drawer`) المزود بالتنقل (`السابق / التالي`).
 2. **ثنائية اللغة الفورية:** كل نص أو قسم يُضاف مستقبلاً **يجب** أن يعمل باللغتين **العربية (`RTL` بخط `IBM Plex Sans Arabic`)** و**الإنجليزية (`LTR` بخط `Plus Jakarta Sans`)** عبر زر التبديل الفوري دون إعادة تحميل الصفحة.
-3. **الوضع النهاري والليلي:** الحفاظ على توافق جميع العناصر مع الوضع النهاري الافتراضي (`data-theme="light"`) والوضع الداكن (`data-theme="dark"`).
+3. **الوضع الداكن الافتراضي والوضع النهاري:** يفتح الموقع دائماً افتراضياً على **الوضع الداكن (`data-theme="dark"`)** مع تناغم **البيبي بلو (`data-palette="sky"`)**، مع الحفاظ على توافق جميع العناصر وعمل زر التبديل إلى الوضع النهاري (`data-theme="light"`) وبقية التناغمات اللونية بسلاسة تامة.
 4. **التجاوب الكامل (Web & Mobile Responsive):** جميع الأقسام، محاكي النمو (`#simulator`)، الفلاتر، البحث الفوري، والنوافذ الجانبية يجب أن تعمل بسلاسة تامة على الهواتف الذكية والشاشات الكبيرة.
 
 ---
@@ -72,7 +72,7 @@
 
 ## 4. خارطة المهام القادمة (Task Backlog for Agent Execution)
 
-* **[Task 1 — Deployment & Direct CV Link]:** اعتماد ملف `index.html` الحالي (`314 KB` — Pastel Manipulation + `#simulator`) مع إضافة زر تحميل مباشر لملف `Abdullah_Rashad_CV.pdf` داخل `#cv-modal` دون المساس بالصور المضمّنة أو التصميم، واستبعاد `code_artifact.html`، ونشر الموقع على `abdobasic.github.io`.
+* **[Task 1 — Deployment, Direct CV Link & Clean Formal Hero] (✅ مكتملة):** اعتماد `index.html` مع محاكي النمو (`#simulator`)، إضافة زر تحميل مباشر لـ `Abdullah_Rashad_CV.pdf` داخل `#cv-modal`، إزالة طبقة الـ 3D Pastel Manipulation واعتماد عرض `profile.jpg` الرسمي الكامل (`object-cover object-top`)، ضبط الثيم الافتراضي على الوضع الداكن (`data-theme="dark"`) والمزاج البيبي بلو (`data-palette="sky"`)، ونشر الموقع على `abdobasic.github.io`.
 * **[Task 2 — Strategic Articles Section (`#insights`)]:** إنشاء وتفعيل قسم «رؤى وتشريحات استراتيجية» بنفس هوية Pastel Manipulation باللغتين العربية والإنجليزية.
 * **[Task 3 — Executive Social Preview (OpenGraph & SEO Schema)]:** إضافة وسوم `og:title`, `og:description`, `og:image` (يشير إلى `https://abdobasic.github.io/profile.jpg`) وبيانات `JSON-LD Person Schema` ليظهر الرابط ببطاقة معاينة فخمة على LinkedIn وWhatsApp.
 * **[Task 4 — Custom Domain Setup]:** إعداد ملف `CNAME` عند رغبة المالك في ربط نطاق شخصي مخصص.
