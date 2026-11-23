@@ -1,0 +1,14 @@
+# Environment & agent system files
+.env
+.env.*
+.agents/
+
+# OS metadata
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Local drafts & temporary files
+code_artifact.html
+*.tmp
+*.bak
