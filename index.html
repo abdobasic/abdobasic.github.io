@@ -340,18 +340,18 @@
          1. STUDIO HEADER (COMPACT APP BAR ON MOBILE, EXACT EDITORIAL BAR ON DESKTOP)
     =========================================================================== -->
     <header class="sticky top-0 z-40 glass-capsule border-t-0 border-x-0 no-print">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 lg:h-20 flex items-center justify-between gap-3">
+        <div class="max-w-6xl mx-auto px-3 sm:px-6 lg:px-8 h-16 lg:h-20 flex items-center justify-between gap-2 sm:gap-3">
             <!-- Brand Monogram & Live Status -->
-            <a href="#top" class="flex items-center gap-2.5 sm:gap-3 group shrink-0 app-tap">
-                <div class="w-9 h-9 lg:w-10 lg:h-10 rounded-2xl flex items-center justify-center font-extrabold text-xs lg:text-sm tracking-tighter chip-accent transition-transform group-hover:scale-105">
+            <a href="#top" class="flex items-center gap-2 sm:gap-3 group min-w-0 sm:shrink-0 app-tap">
+                <div class="w-9 h-9 lg:w-10 lg:h-10 rounded-2xl flex items-center justify-center font-extrabold text-xs lg:text-sm tracking-tighter chip-accent transition-transform group-hover:scale-105 shrink-0">
                     AR
                 </div>
-                <div>
-                    <div class="flex items-center gap-2">
-                        <span id="nav-name" class="font-bold text-sm sm:text-base lg:text-lg ink-primary tracking-tight">عبد الله رشاد</span>
-                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" title="On-Site & Remote"></span>
+                <div class="min-w-0">
+                    <div class="flex items-center gap-1.5 sm:gap-2">
+                        <span id="nav-name" class="font-bold text-sm sm:text-base lg:text-lg ink-primary tracking-tight truncate">عبد الله رشاد</span>
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0" title="On-Site & Remote"></span>
                     </div>
-                    <div id="nav-role" class="text-[9px] sm:text-[11px] ink-muted font-semibold tracking-wider uppercase">MARKETING & GROWTH ARCHITECT</div>
+                    <div id="nav-role" class="text-[9px] sm:text-[11px] ink-muted font-semibold tracking-wider uppercase truncate max-w-[125px] sm:max-w-none">MARKETING & GROWTH ARCHITECT</div>
                 </div>
             </a>
 
@@ -366,7 +366,7 @@
             </nav>
 
             <!-- Studio Controls -->
-            <div class="flex items-center gap-1.5 sm:gap-2">
+            <div class="flex items-center gap-1 sm:gap-2 shrink-0">
                 <!-- Interactive Pastel Mood Switcher -->
                 <div class="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-subtle border border-hairline" title="Pastel Studio Mood">
                     <button type="button" onclick="setPastelMood('sage')" id="mood-sage" class="w-4 h-4 rounded-full transition opacity-75 hover:opacity-100" style="background:#9ED9C2;" aria-label="Sage Mint Pastel"></button>
@@ -382,7 +382,7 @@
                 </button>
 
                 <!-- AR / EN Instant Switcher -->
-                <button type="button" onclick="toggleLanguage()" class="app-tap h-9 lg:h-10 px-3 lg:px-3.5 rounded-xl border border-hairline bg-subtle text-xs font-bold ink-primary hover:opacity-80 transition tracking-wide">
+                <button type="button" onclick="toggleLanguage()" class="app-tap h-9 lg:h-10 px-2.5 sm:px-3 lg:px-3.5 rounded-xl border border-hairline bg-subtle text-xs font-bold ink-primary hover:opacity-80 transition tracking-wide">
                     <span id="lang-btn-text">EN</span>
                 </button>
 
@@ -542,6 +542,7 @@
                                     class="w-full h-full object-cover object-top transition-opacity duration-300"
                                     onerror="handlePortraitError(this)"
                                 >
+                                <script>(function(){if(window.matchMedia&&window.matchMedia('(max-width: 1023px)').matches){var el=document.getElementById('portrait-img');if(el)el.src='Mobile_profile.jpg';}})();</script>
                                 <div id="portrait-fallback" style="display:none;" class="w-full h-full flex-col items-center justify-center p-6 text-center">
                                     <div class="w-24 h-24 rounded-full chip-accent flex items-center justify-center mb-4">
                                         <span class="text-3xl font-extrabold tracking-tight">AR</span>
