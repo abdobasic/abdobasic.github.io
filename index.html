@@ -2,13 +2,18 @@
 <html lang="ar" dir="rtl" class="scroll-smooth" data-theme="dark" data-palette="sky">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" id="meta-theme-color" content="#0C0F14">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
     <title>عبد الله رشاد | Abdullah Rashad — Marketing Director & Growth Architect</title>
     <meta name="description" content="عبد الله رشاد — مدير تسويق واستشاري نمو وتأسيس فرق التسويق بخبرة +15 عاماً في مصر، السعودية، الخليج، وعالمياً (On-Site أو عن بُعد).">
 
-    <!-- Preload Bilingual Portraits -->
-    <link rel="preload" as="image" href="profile.jpg">
-    <link rel="preload" as="image" href="En_profile.jpg">
+    <!-- Responsive Preload: Mobile Direct-Gaze vs Desktop Eye-Tracking Portraits -->
+    <link rel="preload" as="image" href="Mobile_profile.jpg" media="(max-width: 1023px)">
+    <link rel="preload" as="image" href="profile.jpg" media="(min-width: 1024px)">
+    <link rel="preload" as="image" href="En_profile.jpg" media="(min-width: 1024px)">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -43,7 +48,7 @@
             --bg-surface: rgba(255, 255, 255, 0.86);
             --bg-solid: #FFFFFF;
             --bg-subtle: #F3EFE8;
-            --bg-glass: rgba(255, 255, 255, 0.74);
+            --bg-glass: rgba(255, 255, 255, 0.82);
             --ink-primary: #15181C;
             --ink-secondary: #4E545F;
             --ink-muted: #7C838F;
@@ -75,8 +80,8 @@
             --bg-canvas: #0C0F14;
             --bg-surface: rgba(20, 25, 33, 0.84);
             --bg-solid: #141922;
+            --bg-glass: rgba(16, 21, 29, 0.86);
             --bg-subtle: #1A202C;
-            --bg-glass: rgba(18, 23, 31, 0.78);
             --ink-primary: #F4F3EF;
             --ink-secondary: #A6AEBC;
             --ink-muted: #6F7785;
@@ -165,6 +170,7 @@
             color: var(--ink-primary);
             transition: background-color 0.4s ease, color 0.35s ease;
             overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .studio-grid {
@@ -207,8 +213,8 @@
 
         .glass-capsule {
             background: var(--bg-glass);
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--border-hairline);
             box-shadow: var(--shadow-float);
         }
@@ -271,6 +277,31 @@
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
+        /* ==========================================================================
+           MOBILE-ONLY NATIVE WEB APP EXPERIENCE (< 1024px) — ZERO DESKTOP IMPACT
+        ========================================================================== */
+        @media (max-width: 1023px) {
+            html {
+                scroll-padding-top: 4.5rem;
+            }
+            .surface-interactive:hover {
+                transform: none;
+            }
+            .surface-interactive:active,
+            .app-tap:active {
+                transform: scale(0.98);
+                transition: transform 0.12s ease;
+            }
+            .mobile-dock-safe {
+                padding-bottom: calc(0.55rem + env(safe-area-inset-bottom, 0px));
+            }
+            .dock-tab-active {
+                background: var(--accent-soft);
+                color: var(--accent-main);
+                border: 1px solid var(--accent-border);
+            }
+        }
+
         ::-webkit-scrollbar { width: 7px; }
         ::-webkit-scrollbar-track { background: var(--bg-canvas); }
         ::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 9999px; }
@@ -299,32 +330,32 @@
         <div class="absolute bottom-[-120px] end-[18%] w-[460px] h-[460px] rounded-full pastel-orb-3 blur-3xl"></div>
     </div>
 
-    <!-- Sleek Toast Notification -->
-    <div id="studio-toast" class="fixed bottom-6 start-1/2 -translate-x-1/2 z-50 pointer-events-none opacity-0 translate-y-3 transition-all duration-300 glass-capsule px-5 py-3 rounded-2xl flex items-center gap-2.5 text-xs sm:text-sm font-semibold ink-primary no-print">
+    <!-- Sleek Toast Notification (Raised above Mobile App Dock on Mobile) -->
+    <div id="studio-toast" class="fixed bottom-24 lg:bottom-6 start-1/2 -translate-x-1/2 z-50 pointer-events-none opacity-0 translate-y-3 transition-all duration-300 glass-capsule px-5 py-3 rounded-2xl flex items-center gap-2.5 text-xs sm:text-sm font-semibold ink-primary no-print">
         <span class="w-2 h-2 rounded-full bg-sky-400"></span>
         <span id="studio-toast-text">تم النسخ بنجاح</span>
     </div>
 
     <!-- ==========================================================================
-         1. MINIMALIST FLOATING STUDIO HEADER & PALETTE CONTROLLER
+         1. STUDIO HEADER (COMPACT APP BAR ON MOBILE, EXACT EDITORIAL BAR ON DESKTOP)
     =========================================================================== -->
     <header class="sticky top-0 z-40 glass-capsule border-t-0 border-x-0 no-print">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-3">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 lg:h-20 flex items-center justify-between gap-3">
             <!-- Brand Monogram & Live Status -->
-            <a href="#top" class="flex items-center gap-3 group shrink-0">
-                <div class="w-10 h-10 rounded-2xl flex items-center justify-center font-extrabold text-sm tracking-tighter chip-accent transition-transform group-hover:scale-105">
+            <a href="#top" class="flex items-center gap-2.5 sm:gap-3 group shrink-0 app-tap">
+                <div class="w-9 h-9 lg:w-10 lg:h-10 rounded-2xl flex items-center justify-center font-extrabold text-xs lg:text-sm tracking-tighter chip-accent transition-transform group-hover:scale-105">
                     AR
                 </div>
                 <div>
                     <div class="flex items-center gap-2">
-                        <span id="nav-name" class="font-bold text-base sm:text-lg ink-primary tracking-tight">عبد الله رشاد</span>
+                        <span id="nav-name" class="font-bold text-sm sm:text-base lg:text-lg ink-primary tracking-tight">عبد الله رشاد</span>
                         <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" title="On-Site & Remote"></span>
                     </div>
-                    <div id="nav-role" class="text-[10px] sm:text-[11px] ink-muted font-semibold tracking-wider uppercase">MARKETING & GROWTH ARCHITECT</div>
+                    <div id="nav-role" class="text-[9px] sm:text-[11px] ink-muted font-semibold tracking-wider uppercase">MARKETING & GROWTH ARCHITECT</div>
                 </div>
             </a>
 
-            <!-- Editorial Desktop Navigation -->
+            <!-- Editorial Desktop Navigation (Untouched on Desktop) -->
             <nav class="hidden xl:flex items-center gap-4 text-[13px] font-semibold ink-secondary whitespace-nowrap">
                 <a href="#pillars" id="nav-pillars" class="hover:ink-primary transition whitespace-nowrap">الملخص التنفيذي</a>
                 <a href="#simulator" id="nav-sim" class="hover:ink-primary transition whitespace-nowrap">محاكي النمو</a>
@@ -334,9 +365,9 @@
                 <a href="#clients" id="nav-clients" class="hover:ink-primary transition whitespace-nowrap">شركاء النجاح</a>
             </nav>
 
-            <!-- Studio Controls: Pastel Mood Dots + Theme + Lang + CTA -->
-            <div class="flex items-center gap-2">
-                <!-- Interactive Pastel Mood Switcher (Sky Default Active) -->
+            <!-- Studio Controls -->
+            <div class="flex items-center gap-1.5 sm:gap-2">
+                <!-- Interactive Pastel Mood Switcher -->
                 <div class="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-subtle border border-hairline" title="Pastel Studio Mood">
                     <button type="button" onclick="setPastelMood('sage')" id="mood-sage" class="w-4 h-4 rounded-full transition opacity-75 hover:opacity-100" style="background:#9ED9C2;" aria-label="Sage Mint Pastel"></button>
                     <button type="button" onclick="setPastelMood('lavender')" id="mood-lavender" class="w-4 h-4 rounded-full transition opacity-75 hover:opacity-100" style="background:#C5B9F6;" aria-label="Lavender Mist Pastel"></button>
@@ -344,66 +375,74 @@
                     <button type="button" onclick="setPastelMood('sky')" id="mood-sky" class="w-4 h-4 rounded-full transition transform scale-110 ring-2 ring-offset-1 ring-current" style="background:#A9D2F6;" aria-label="Sky Glacier Pastel"></button>
                 </div>
 
-                <!-- Light / Dark Toggle (Dark Default: Sun visible, Moon hidden) -->
-                <button type="button" onclick="toggleTheme()" id="theme-toggle-btn" class="w-10 h-10 rounded-xl border border-hairline bg-subtle flex items-center justify-center ink-primary hover:opacity-80 transition" aria-label="تبديل المظهر">
+                <!-- Light / Dark Toggle -->
+                <button type="button" onclick="toggleTheme()" id="theme-toggle-btn" class="app-tap w-9 h-9 lg:w-10 lg:h-10 rounded-xl border border-hairline bg-subtle flex items-center justify-center ink-primary hover:opacity-80 transition" aria-label="تبديل المظهر">
                     <i id="icon-moon" data-lucide="moon" class="w-4 h-4 hidden"></i>
                     <i id="icon-sun" data-lucide="sun" class="w-4 h-4"></i>
                 </button>
 
                 <!-- AR / EN Instant Switcher -->
-                <button type="button" onclick="toggleLanguage()" class="h-10 px-3.5 rounded-xl border border-hairline bg-subtle text-xs font-bold ink-primary hover:opacity-80 transition tracking-wide">
+                <button type="button" onclick="toggleLanguage()" class="app-tap h-9 lg:h-10 px-3 lg:px-3.5 rounded-xl border border-hairline bg-subtle text-xs font-bold ink-primary hover:opacity-80 transition tracking-wide">
                     <span id="lang-btn-text">EN</span>
                 </button>
 
-                <!-- Direct Contact CTA -->
+                <!-- Mobile Quick CV App Action (Mobile only) -->
+                <button type="button" onclick="openCvModal()" class="md:hidden app-tap w-9 h-9 rounded-xl chip-accent flex items-center justify-center" aria-label="CV">
+                    <i data-lucide="file-text" class="w-4 h-4"></i>
+                </button>
+
+                <!-- Direct Contact CTA (Desktop/Tablet) -->
                 <a href="#contact" id="nav-cta-btn" class="hidden md:inline-flex items-center gap-2 h-10 px-4 rounded-xl btn-ink text-xs sm:text-sm font-semibold whitespace-nowrap shrink-0">
                     <span>تواصل مباشر</span>
                 </a>
 
-                <!-- Mobile Menu Trigger -->
-                <button type="button" onclick="openMobileDrawer()" class="xl:hidden w-10 h-10 rounded-xl border border-hairline bg-subtle flex items-center justify-center ink-primary" aria-label="القائمة">
-                    <i data-lucide="menu" class="w-5 h-5"></i>
+                <!-- Settings / Menu Trigger (< xl) -->
+                <button type="button" onclick="openMobileDrawer()" class="xl:hidden app-tap w-9 h-9 lg:w-10 lg:h-10 rounded-xl border border-hairline bg-subtle flex items-center justify-center ink-primary" aria-label="القائمة">
+                    <i data-lucide="sliders-horizontal" class="w-4 h-4 lg:hidden"></i>
+                    <i data-lucide="menu" class="w-5 h-5 hidden lg:block"></i>
                 </button>
             </div>
         </div>
     </header>
 
-    <!-- Mobile Navigation Drawer -->
+    <!-- Mobile App Settings & Full Directory Sheet -->
     <div id="mobile-drawer" class="fixed inset-0 z-50 hidden no-print" role="dialog" aria-modal="true">
-        <div class="fixed inset-0 bg-black/45 backdrop-blur-sm" onclick="closeMobileDrawer()"></div>
-        <div class="fixed inset-y-0 end-0 w-full max-w-xs surface-solid p-6 flex flex-col justify-between z-10 overflow-y-auto">
+        <div class="fixed inset-0 bg-black/50 backdrop-blur-sm" onclick="closeMobileDrawer()"></div>
+        <div class="fixed inset-x-0 bottom-0 sm:inset-y-0 sm:inset-x-auto sm:end-0 w-full sm:max-w-xs surface-solid rounded-t-[2rem] sm:rounded-none p-6 flex flex-col justify-between z-10 max-h-[85vh] sm:max-h-none overflow-y-auto">
             <div>
-                <div class="flex items-center justify-between pb-5 border-b border-hairline">
-                    <span id="mob-drawer-title" class="font-bold text-base ink-primary">القائمة الرئيسية</span>
+                <!-- Mobile Drag Handle Pill -->
+                <div class="w-12 h-1.5 rounded-full bg-subtle border border-hairline mx-auto mb-4 sm:hidden"></div>
+
+                <div class="flex items-center justify-between pb-4 border-b border-hairline">
+                    <span id="mob-drawer-title" class="font-bold text-base ink-primary">إعدادات وأقسام المنصة</span>
                     <button type="button" onclick="closeMobileDrawer()" class="w-9 h-9 rounded-xl bg-subtle flex items-center justify-center ink-primary" aria-label="إغلاق">
                         <i data-lucide="x" class="w-4 h-4"></i>
                     </button>
                 </div>
 
                 <!-- Mobile Pastel Mood Selector -->
-                <div class="mt-4 p-3 rounded-2xl bg-subtle flex items-center justify-between">
+                <div class="mt-4 p-3.5 rounded-2xl bg-subtle border border-hairline flex items-center justify-between">
                     <span id="mob-mood-lbl" class="text-xs font-semibold ink-secondary">تناغم الباستيل:</span>
-                    <div class="flex items-center gap-2">
-                        <button type="button" onclick="setPastelMood('sage')" class="w-5 h-5 rounded-full border border-white/60" style="background:#9ED9C2;" aria-label="Sage"></button>
-                        <button type="button" onclick="setPastelMood('lavender')" class="w-5 h-5 rounded-full border border-white/60" style="background:#C5B9F6;" aria-label="Lavender"></button>
-                        <button type="button" onclick="setPastelMood('peach')" class="w-5 h-5 rounded-full border border-white/60" style="background:#F5C6A5;" aria-label="Peach"></button>
-                        <button type="button" onclick="setPastelMood('sky')" class="w-5 h-5 rounded-full border border-white/60" style="background:#A9D2F6;" aria-label="Sky"></button>
+                    <div class="flex items-center gap-2.5">
+                        <button type="button" onclick="setPastelMood('sage')" class="w-6 h-6 rounded-full border border-white/60" style="background:#9ED9C2;" aria-label="Sage"></button>
+                        <button type="button" onclick="setPastelMood('lavender')" class="w-6 h-6 rounded-full border border-white/60" style="background:#C5B9F6;" aria-label="Lavender"></button>
+                        <button type="button" onclick="setPastelMood('peach')" class="w-6 h-6 rounded-full border border-white/60" style="background:#F5C6A5;" aria-label="Peach"></button>
+                        <button type="button" onclick="setPastelMood('sky')" class="w-6 h-6 rounded-full border border-white/60" style="background:#A9D2F6;" aria-label="Sky"></button>
                     </div>
                 </div>
 
-                <nav class="mt-5 space-y-1.5">
-                    <a href="#pillars" onclick="closeMobileDrawer()" id="mob-pillars" class="block px-4 py-3 rounded-xl text-sm font-semibold ink-primary hover:bg-subtle transition">الملخص التنفيذي</a>
-                    <a href="#simulator" onclick="closeMobileDrawer()" id="mob-sim" class="block px-4 py-3 rounded-xl text-sm font-semibold ink-primary hover:bg-subtle transition">محاكي النمو التفاعلي</a>
-                    <a href="#cases" onclick="closeMobileDrawer()" id="mob-cases" class="block px-4 py-3 rounded-xl text-sm font-semibold ink-primary hover:bg-subtle transition">دراسات الحالة (8)</a>
-                    <a href="#playbooks" onclick="closeMobileDrawer()" id="mob-playbooks" class="block px-4 py-3 rounded-xl text-sm font-semibold ink-primary hover:bg-subtle transition">المنهجيات العميقة</a>
-                    <a href="#academy" onclick="closeMobileDrawer()" id="mob-academy" class="block px-4 py-3 rounded-xl text-sm font-semibold ink-primary hover:bg-subtle transition">أكاديمية تأهيل الفرق</a>
-                    <a href="#clients" onclick="closeMobileDrawer()" id="mob-clients" class="block px-4 py-3 rounded-xl text-sm font-semibold ink-primary hover:bg-subtle transition">شركاء النجاح</a>
-                    <a href="#contact" onclick="closeMobileDrawer()" id="mob-contact" class="block px-4 py-3 rounded-xl text-sm font-bold accent-main hover:bg-subtle transition">تواصل مباشر</a>
+                <nav class="mt-4 grid grid-cols-2 sm:grid-cols-1 gap-2 sm:gap-1.5">
+                    <a href="#pillars" onclick="closeMobileDrawer()" id="mob-pillars" class="block px-3.5 py-3 rounded-xl text-xs sm:text-sm font-semibold ink-primary bg-subtle sm:bg-transparent hover:bg-subtle transition">الملخص التنفيذي</a>
+                    <a href="#simulator" onclick="closeMobileDrawer()" id="mob-sim" class="block px-3.5 py-3 rounded-xl text-xs sm:text-sm font-semibold ink-primary bg-subtle sm:bg-transparent hover:bg-subtle transition">محاكي النمو</a>
+                    <a href="#cases" onclick="closeMobileDrawer()" id="mob-cases" class="block px-3.5 py-3 rounded-xl text-xs sm:text-sm font-semibold ink-primary bg-subtle sm:bg-transparent hover:bg-subtle transition">دراسات الحالة (8)</a>
+                    <a href="#playbooks" onclick="closeMobileDrawer()" id="mob-playbooks" class="block px-3.5 py-3 rounded-xl text-xs sm:text-sm font-semibold ink-primary bg-subtle sm:bg-transparent hover:bg-subtle transition">المنهجيات العميقة</a>
+                    <a href="#academy" onclick="closeMobileDrawer()" id="mob-academy" class="block px-3.5 py-3 rounded-xl text-xs sm:text-sm font-semibold ink-primary bg-subtle sm:bg-transparent hover:bg-subtle transition">أكاديمية الفرق</a>
+                    <a href="#clients" onclick="closeMobileDrawer()" id="mob-clients" class="block px-3.5 py-3 rounded-xl text-xs sm:text-sm font-semibold ink-primary bg-subtle sm:bg-transparent hover:bg-subtle transition">شركاء النجاح</a>
                 </nav>
             </div>
 
             <!-- Strict Zero-Space Mobile Call & WhatsApp -->
-            <div class="pt-5 border-t border-hairline space-y-2.5">
+            <div class="pt-5 mt-5 border-t border-hairline grid grid-cols-1 gap-2.5">
                 <a href="https://wa.me/201113277288" target="_blank" rel="noopener noreferrer" class="w-full py-3 px-4 rounded-xl btn-pastel-primary font-bold text-sm flex items-center justify-center gap-2">
                     <span>WhatsApp:</span>
                     <span dir="ltr">01113277288</span>
@@ -422,59 +461,61 @@
     <main id="top" class="relative z-10">
 
         <!-- ======================================================================
-             2. HERO SECTION: EDITORIAL MINIMALISM + BILINGUAL EYE-TRACKING PORTRAIT
+             2. HERO SECTION
+             - Mobile (<1024px): Native Web-App Executive Profile Card on top with Mobile_profile.jpg (direct eye contact) + thumb-ready action grid.
+             - Desktop (>=1024px): 100% Untouched 7-col Editorial + 5-col Portrait (profile.jpg / En_profile.jpg).
         ======================================================================= -->
-        <section class="pt-10 pb-20 md:pt-16 md:pb-28 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        <section class="pt-5 pb-14 md:pt-16 md:pb-28 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-7 lg:gap-8 items-center">
 
-                <!-- Editorial Authority Column (7 cols) -->
-                <div class="lg:col-span-7 space-y-6">
+                <!-- Editorial Authority Column (7 cols on Desktop | Below Portrait on Mobile App View) -->
+                <div class="order-2 lg:order-1 lg:col-span-7 space-y-5 lg:space-y-6">
                     <!-- Strict On-Site OR Remote Availability Pill -->
-                    <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full chip-accent text-xs sm:text-sm font-semibold">
+                    <div class="inline-flex items-center gap-2.5 px-3.5 sm:px-4 py-2 rounded-2xl lg:rounded-full chip-accent text-[11px] sm:text-sm font-semibold leading-snug">
                         <span class="w-2 h-2 rounded-full bg-current animate-pulse shrink-0"></span>
                         <span id="hero-availability">متاح للمناصب القيادية والاستشارات | On-Site أو عن بُعد — مصر، السعودية، الخليج، وعالمياً</span>
                     </div>
 
                     <!-- Sculpted Editorial Headline -->
-                    <h1 id="hero-headline" class="text-[clamp(2rem,4.3vw,3.5rem)] font-bold ink-primary leading-[1.22] tracking-tight">
+                    <h1 id="hero-headline" class="text-[1.68rem] sm:text-[clamp(2rem,4.3vw,3.5rem)] font-bold ink-primary leading-[1.28] lg:leading-[1.22] tracking-tight">
                         أبني منظومات التسويق من الصفر، وأحوّل الميزانيات والفرق إلى <span class="accent-main underline decoration-2 underline-offset-8">ماكينات نمو مؤسسية.</span>
                     </h1>
 
                     <!-- Calm Minimalist Subheadline -->
-                    <p id="hero-subheadline" class="text-base sm:text-lg ink-secondary leading-relaxed max-w-2xl">
+                    <p id="hero-subheadline" class="text-sm sm:text-lg ink-secondary leading-relaxed max-w-2xl">
                         +15 عاماً من القيادة التنفيذية، هندسة التحول التجاري، وتأسيس الفرق الإبداعية والإعلانية عبر قطاعات B2B, B2C, B2G, B2R — مدعومة بخلفية هندسية تأسيسية كمبرمج Java.
                     </p>
 
-                    <!-- Pastel Discipline Tags -->
-                    <div id="hero-tags" class="flex flex-wrap gap-2 pt-1">
-                        <span class="px-3 py-1 rounded-full text-xs font-semibold chip-sky">B2B • B2C • B2G • B2R</span>
-                        <span class="px-3 py-1 rounded-full text-xs font-semibold chip-lavender">Pricing & Quotation Psychology</span>
-                        <span class="px-3 py-1 rounded-full text-xs font-semibold chip-peach">Cellular Media Buying</span>
-                        <span class="px-3 py-1 rounded-full text-xs font-semibold chip-sage">YouTube CMS & 24/7 Broadcast</span>
+                    <!-- Pastel Discipline Tags (Swipeable App Chips on Mobile, Wrap on Desktop) -->
+                    <div id="hero-tags" class="flex lg:flex-wrap gap-2 overflow-x-auto lg:overflow-visible no-scrollbar pb-1 lg:pb-0 pt-0.5">
+                        <span class="shrink-0 px-3 py-1 rounded-full text-xs font-semibold chip-sky">B2B • B2C • B2G • B2R</span>
+                        <span class="shrink-0 px-3 py-1 rounded-full text-xs font-semibold chip-lavender">Pricing & Quotation Psychology</span>
+                        <span class="shrink-0 px-3 py-1 rounded-full text-xs font-semibold chip-peach">Cellular Media Buying</span>
+                        <span class="shrink-0 px-3 py-1 rounded-full text-xs font-semibold chip-sage">YouTube CMS & 24/7 Broadcast</span>
                     </div>
 
-                    <!-- Strict Zero-Space Direct Contact Actions -->
-                    <div class="flex flex-wrap items-center gap-3 pt-2 no-print">
-                        <a href="https://wa.me/201113277288" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-2xl btn-pastel-primary font-bold text-sm sm:text-base shadow-sm">
+                    <!-- Strict Zero-Space Direct Contact Actions (App-Grid on Mobile, Inline Flex on Desktop) -->
+                    <div class="grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-2.5 sm:gap-3 pt-1 lg:pt-2 no-print">
+                        <a href="https://wa.me/201113277288" target="_blank" rel="noopener noreferrer" class="app-tap col-span-2 sm:col-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-2xl btn-pastel-primary font-bold text-sm sm:text-base shadow-sm">
                             <i data-lucide="message-circle" class="w-4 h-4 shrink-0"></i>
                             <span id="hero-wa-label">واتساب:</span>
                             <span dir="ltr" class="tracking-tight">01113277288</span>
                         </a>
 
-                        <a href="tel:+201061773444" class="inline-flex items-center gap-2 px-5 py-3.5 rounded-2xl surface-card hover:border-strong ink-primary font-bold text-sm sm:text-base">
+                        <a href="tel:+201061773444" class="app-tap inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-3.5 rounded-2xl surface-card hover:border-strong ink-primary font-bold text-xs sm:text-base">
                             <i data-lucide="phone-call" class="w-4 h-4 accent-main shrink-0"></i>
                             <span id="hero-call-label">اتصال:</span>
                             <span dir="ltr" class="tracking-tight">01061773444</span>
                         </a>
 
-                        <button type="button" onclick="openCvModal()" class="inline-flex items-center gap-2 px-5 py-3.5 rounded-2xl bg-subtle hover:opacity-85 ink-primary font-semibold text-sm transition border border-hairline">
-                            <i data-lucide="file-text" class="w-4 h-4 accent-main"></i>
+                        <button type="button" onclick="openCvModal()" class="app-tap inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-3.5 rounded-2xl bg-subtle hover:opacity-85 ink-primary font-semibold text-xs sm:text-sm transition border border-hairline">
+                            <i data-lucide="file-text" class="w-4 h-4 accent-main shrink-0"></i>
                             <span id="hero-cv-btn">السيرة الذاتية والملخص</span>
                         </button>
                     </div>
 
                     <!-- Quick Copyable Direct Links -->
-                    <div class="flex flex-wrap items-center gap-4 pt-1 text-xs sm:text-sm ink-muted">
+                    <div class="flex flex-wrap items-center gap-3 sm:gap-4 pt-1 text-xs sm:text-sm ink-muted">
                         <a href="https://www.linkedin.com/in/abdobasic/" target="_blank" rel="noopener noreferrer" class="hover:ink-primary inline-flex items-center gap-1.5 ink-secondary font-medium transition">
                             <span>LinkedIn / in/abdobasic</span>
                             <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
@@ -487,17 +528,19 @@
                     </div>
                 </div>
 
-                <!-- Clean Executive Full Portrait Frame (5 cols — Switches profile.jpg / En_profile.jpg by Language) -->
-                <div class="lg:col-span-5 flex flex-col items-center">
-                    <div class="relative w-full max-w-[390px] sm:max-w-[420px] pt-2 pb-4 px-3 select-none">
-                        <div class="relative rounded-[2.4rem] surface-card p-4 sm:p-5 overflow-hidden">
-                            <div class="relative aspect-[4/4.65] w-full rounded-[1.85rem] overflow-hidden bg-subtle flex items-center justify-center">
+                <!-- Portrait Frame:
+                     - Mobile (<1024px): Top Native-App Hero Card displaying Mobile_profile.jpg (Direct Camera Gaze)
+                     - Desktop (>=1024px): Exact 5-col Executive Frame displaying profile.jpg (AR) / En_profile.jpg (EN) -->
+                <div class="order-1 lg:order-2 lg:col-span-5 flex flex-col items-center">
+                    <div class="relative w-full max-w-[360px] sm:max-w-[420px] lg:pt-2 lg:pb-4 lg:px-3 select-none">
+                        <div class="relative rounded-[2rem] lg:rounded-[2.4rem] surface-card p-3 sm:p-5 overflow-hidden">
+                            <div class="relative aspect-[4/4.25] lg:aspect-[4/4.65] w-full rounded-[1.55rem] lg:rounded-[1.85rem] overflow-hidden bg-subtle flex items-center justify-center">
                                 <img
                                     id="portrait-img"
                                     src="profile.jpg"
                                     alt="عبد الله رشاد - Abdullah Rashad"
                                     class="w-full h-full object-cover object-top transition-opacity duration-300"
-                                    onerror="if(this.src.indexOf('En_profile.jpg')!==-1){this.src='profile.jpg';}else{this.style.display='none';document.getElementById('portrait-fallback').style.display='flex';}"
+                                    onerror="handlePortraitError(this)"
                                 >
                                 <div id="portrait-fallback" style="display:none;" class="w-full h-full flex-col items-center justify-center p-6 text-center">
                                     <div class="w-24 h-24 rounded-full chip-accent flex items-center justify-center mb-4">
@@ -509,45 +552,45 @@
                             </div>
 
                             <!-- Stage Caption Footer -->
-                            <div class="pt-4 px-1 flex items-center justify-between gap-2 text-xs">
+                            <div class="pt-3.5 lg:pt-4 px-1 flex items-center justify-between gap-2 text-xs">
                                 <div>
                                     <div id="portrait-caption-name" class="font-bold ink-primary text-sm">عبد الله رشاد</div>
                                     <div id="portrait-caption-sub" class="ink-muted text-[11px]">خلفية برمجية (Java) + قيادة تسويقية شاملة</div>
                                 </div>
-                                <span class="px-2.5 py-1 rounded-xl chip-accent font-extrabold text-[11px]" dir="ltr">15+ YRS</span>
+                                <span class="px-2.5 py-1 rounded-xl chip-accent font-extrabold text-[11px] shrink-0" dir="ltr">15+ YRS</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Animated 5-Column Pastel Telemetry Metrics Strip -->
-            <div class="mt-14 md:mt-20 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-                <div class="surface-card rounded-3xl p-5 relative overflow-hidden">
+            <!-- Telemetry Metrics Strip (Swipeable Native App Widgets on Mobile, Exact 5-Col Grid on Desktop) -->
+            <div class="mt-10 md:mt-20 flex sm:grid sm:grid-cols-3 lg:grid-cols-5 gap-3.5 sm:gap-4 overflow-x-auto sm:overflow-visible no-scrollbar snap-x snap-mandatory pb-2 sm:pb-0 -mx-4 px-4 sm:mx-0 sm:px-0">
+                <div class="snap-start shrink-0 w-[68vw] max-w-[230px] sm:w-auto sm:max-w-none surface-card rounded-3xl p-5 relative overflow-hidden">
                     <div class="w-8 h-1.5 rounded-full mb-3" style="background:var(--pastel-sky-ink);"></div>
                     <div class="text-3xl sm:text-4xl font-extrabold ink-primary tracking-tight" dir="ltr">+<span class="counter-val" data-target="15">15</span></div>
                     <p id="metric-1" class="text-xs ink-secondary mt-2 leading-relaxed">عاماً من القيادة التسويقية وبناء العلامات من الصفر</p>
                 </div>
 
-                <div class="surface-card rounded-3xl p-5 relative overflow-hidden">
+                <div class="snap-start shrink-0 w-[68vw] max-w-[230px] sm:w-auto sm:max-w-none surface-card rounded-3xl p-5 relative overflow-hidden">
                     <div class="w-8 h-1.5 rounded-full mb-3" style="background:var(--pastel-lavender-ink);"></div>
                     <div class="text-3xl sm:text-4xl font-extrabold accent-main tracking-tight" dir="ltr">+<span class="counter-val" data-target="50">50</span>M</div>
                     <p id="metric-2" class="text-xs ink-secondary mt-2 leading-relaxed">جنيه ميزانيات إعلانية مُدارة (+300K إعلان منفذ)</p>
                 </div>
 
-                <div class="surface-card rounded-3xl p-5 relative overflow-hidden">
+                <div class="snap-start shrink-0 w-[68vw] max-w-[230px] sm:w-auto sm:max-w-none surface-card rounded-3xl p-5 relative overflow-hidden">
                     <div class="w-8 h-1.5 rounded-full mb-3" style="background:var(--pastel-peach-ink);"></div>
                     <div class="text-3xl sm:text-4xl font-extrabold ink-primary tracking-tight" dir="ltr"><span class="counter-val" data-target="10">10</span>X</div>
                     <p id="metric-3" class="text-xs ink-secondary mt-2 leading-relaxed">مضاعفة مبيعات بالسوق السعودي خلال عامين</p>
                 </div>
 
-                <div class="surface-card rounded-3xl p-5 relative overflow-hidden">
+                <div class="snap-start shrink-0 w-[68vw] max-w-[230px] sm:w-auto sm:max-w-none surface-card rounded-3xl p-5 relative overflow-hidden">
                     <div class="w-8 h-1.5 rounded-full mb-3" style="background:var(--pastel-sage-ink);"></div>
                     <div class="text-3xl sm:text-4xl font-extrabold ink-primary tracking-tight" dir="ltr"><span class="counter-val" data-target="300">300</span>+</div>
                     <p id="metric-4" class="text-xs ink-secondary mt-2 leading-relaxed">طلب يومي بدلاً من 8 طلبات خلال 6 أشهر فقط</p>
                 </div>
 
-                <div class="col-span-2 sm:col-span-1 surface-card rounded-3xl p-5 relative overflow-hidden">
+                <div class="snap-start shrink-0 w-[68vw] max-w-[230px] sm:w-auto sm:max-w-none surface-card rounded-3xl p-5 relative overflow-hidden">
                     <div class="w-8 h-1.5 rounded-full mb-3" style="background:var(--pastel-sky-ink);"></div>
                     <div class="text-3xl sm:text-4xl font-extrabold accent-main tracking-tight" dir="ltr"><span class="counter-val" data-target="1">1</span>M+</div>
                     <p id="metric-5" class="text-xs ink-secondary mt-2 leading-relaxed">متابع حقيقي متفاعل بتمويل إعلاني صفر ($0)</p>
@@ -558,20 +601,20 @@
         <!-- ======================================================================
              3. THREE EXECUTIVE VALUE PILLARS
         ======================================================================= -->
-        <section id="pillars" class="reveal-item py-20 md:py-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-hairline">
-            <div class="max-w-2xl mb-12">
+        <section id="pillars" class="reveal-item py-14 md:py-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-hairline">
+            <div class="max-w-2xl mb-8 md:mb-12">
                 <span id="pillars-kicker" class="inline-block px-3 py-1 rounded-full chip-sky text-xs font-bold uppercase tracking-wider">01 / مسارات القيمة التنفيذية</span>
                 <h2 id="pillars-title" class="text-2xl sm:text-4xl font-bold ink-primary mt-3 tracking-tight">ثلاث ركائز لتحويل التسويق إلى أصل استثماري</h2>
             </div>
 
-            <div id="pillars-container" class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-7"></div>
+            <div id="pillars-container" class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 lg:gap-7"></div>
         </section>
 
         <!-- ======================================================================
              4. INTERACTIVE GROWTH & TURNAROUND LAB (SIMULATOR)
         ======================================================================= -->
-        <section id="simulator" class="reveal-item py-20 md:py-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-hairline no-print">
-            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+        <section id="simulator" class="reveal-item py-14 md:py-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-hairline no-print">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 md:mb-10">
                 <div class="max-w-2xl">
                     <span id="sim-kicker" class="inline-block px-3 py-1 rounded-full chip-lavender text-xs font-bold uppercase tracking-wider">02 / مختبر التحول التفاعلي</span>
                     <h2 id="sim-title" class="text-2xl sm:text-4xl font-bold ink-primary mt-3 tracking-tight">محاكي هندسة النمو وحل الاختناقات</h2>
@@ -579,17 +622,18 @@
                 </div>
             </div>
 
-            <div class="surface-card rounded-[2.2rem] p-6 sm:p-9 lg:p-10 relative overflow-hidden">
-                <div id="sim-tabs" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-8"></div>
-                <div id="sim-stage" class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch"></div>
+            <div class="surface-card rounded-[1.85rem] sm:rounded-[2.2rem] p-5 sm:p-9 lg:p-10 relative overflow-hidden">
+                <!-- Swipeable App Tabs on Mobile, 4-Col Grid on Desktop -->
+                <div id="sim-tabs" class="flex sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3 overflow-x-auto sm:overflow-visible no-scrollbar pb-2 sm:pb-0 mb-6 sm:mb-8"></div>
+                <div id="sim-stage" class="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6 items-stretch"></div>
             </div>
         </section>
 
         <!-- ======================================================================
              5. ALL 8 SEPARATED CASE STUDIES
         ======================================================================= -->
-        <section id="cases" class="reveal-item py-20 md:py-28 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-hairline">
-            <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10">
+        <section id="cases" class="reveal-item py-14 md:py-28 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-hairline">
+            <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-5 lg:gap-6 mb-8 lg:mb-10">
                 <div class="max-w-2xl">
                     <span id="cases-kicker" class="inline-block px-3 py-1 rounded-full chip-peach text-xs font-bold uppercase tracking-wider">03 / سجل التحولات والتشريح الاستراتيجي</span>
                     <h2 id="cases-title" class="text-2xl sm:text-4xl font-bold ink-primary mt-3 tracking-tight">ثماني دراسات حالة مفصلية بالأرقام</h2>
@@ -597,79 +641,80 @@
                 </div>
 
                 <div class="relative w-full lg:w-72 no-print">
-                    <input type="text" id="case-search-input" oninput="handleCaseSearch(this.value)" placeholder="ابحث في دراسات الحالة..." class="w-full ps-10 pe-4 py-2.5 rounded-2xl surface-card text-xs sm:text-sm ink-primary placeholder:ink-muted focus:outline-none focus:ring-2 focus:ring-sky-500/40">
+                    <input type="text" id="case-search-input" oninput="handleCaseSearch(this.value)" placeholder="ابحث في دراسات الحالة..." class="w-full ps-10 pe-4 py-3 lg:py-2.5 rounded-2xl surface-card text-xs sm:text-sm ink-primary placeholder:ink-muted focus:outline-none focus:ring-2 focus:ring-sky-500/40">
                     <i data-lucide="search" class="w-4 h-4 ink-muted absolute top-1/2 -translate-y-1/2 start-3.5 pointer-events-none"></i>
                 </div>
             </div>
 
-            <div id="case-filters" class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-4 mb-8 no-print"></div>
-            <div id="cases-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8"></div>
+            <div id="case-filters" class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-3 mb-6 lg:mb-8 no-print"></div>
+            <div id="cases-grid" class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6 lg:gap-8"></div>
         </section>
 
         <!-- ======================================================================
              6. PROPRIETARY OPERATING PLAYBOOKS (4 UN-ABBREVIATED SYSTEMS)
         ======================================================================= -->
-        <section id="playbooks" class="reveal-item py-20 md:py-28 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-hairline">
-            <div class="max-w-3xl mb-12">
+        <section id="playbooks" class="reveal-item py-14 md:py-28 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-hairline">
+            <div class="max-w-3xl mb-8 md:mb-12">
                 <span id="playbooks-kicker" class="inline-block px-3 py-1 rounded-full chip-sky text-xs font-bold uppercase tracking-wider">04 / الأنظمة والمنهجيات التشغيلية</span>
                 <h2 id="playbooks-title" class="text-2xl sm:text-4xl font-bold ink-primary mt-3 tracking-tight">منهجياتي الخاصة لهندسة النمو والربحية</h2>
                 <p id="playbooks-subtitle" class="text-sm sm:text-base ink-secondary mt-3 leading-relaxed">أنظمة مترابطة تجمع بين سيكولوجية المستهلك، اقتصاديات المنتج، وخلفيتي التأسيسية كمبرمج Java — اختر المنهجية وتفاعل مع ركائزها الكاملة دون أي اختزال.</p>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                <div id="playbook-tabs" class="lg:col-span-5 space-y-3"></div>
-                <div id="playbook-active-panel" class="lg:col-span-7 surface-card rounded-[2.2rem] p-6 sm:p-9 relative overflow-hidden"></div>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+                <!-- Horizontal Swipeable App Selector on Mobile, Vertical 5-Col Stack on Desktop -->
+                <div id="playbook-tabs" class="lg:col-span-5 flex lg:block gap-3 overflow-x-auto lg:overflow-visible no-scrollbar pb-2 lg:pb-0 lg:space-y-3 -mx-4 px-4 lg:mx-0 lg:px-0 snap-x"></div>
+                <div id="playbook-active-panel" class="lg:col-span-7 surface-card rounded-[1.85rem] sm:rounded-[2.2rem] p-5 sm:p-9 relative overflow-hidden"></div>
             </div>
         </section>
 
         <!-- ======================================================================
              7. CORPORATE TEAM ENGINEERING & ELITE ACADEMY (4 TRACKS — NO WEB SEO)
         ======================================================================= -->
-        <section id="academy" class="reveal-item py-20 md:py-28 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-hairline">
-            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+        <section id="academy" class="reveal-item py-14 md:py-28 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-hairline">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 md:mb-12">
                 <div class="max-w-2xl">
                     <span id="academy-kicker" class="inline-block px-3 py-1 rounded-full chip-peach text-xs font-bold uppercase tracking-wider">05 / تأسيس وتدريب الفرق منذ 2015</span>
                     <h2 id="academy-title" class="text-2xl sm:text-4xl font-bold ink-primary mt-3 tracking-tight">أكاديمية تأسيس وتأهيل فرق الشركات</h2>
                     <p id="academy-subtitle" class="text-sm sm:text-base ink-secondary mt-3 leading-relaxed">تدريب خاص داخل الشركات (Private In-House Corporate Training) لتأسيس وتأهيل الفرق من الصفر، إلى جانب عملي كمحاضر ومستشار تسويق في أكاديمية النخبة الدولية للتدريب والتنمية.</p>
                 </div>
-                <a href="https://ieatd.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-3 rounded-2xl surface-card hover:border-strong text-xs sm:text-sm font-bold ink-primary shrink-0 self-start md:self-auto">
+                <a href="https://ieatd.com" target="_blank" rel="noopener noreferrer" class="app-tap inline-flex items-center gap-2 px-5 py-3 rounded-2xl surface-card hover:border-strong text-xs sm:text-sm font-bold ink-primary shrink-0 self-start md:self-auto">
                     <span id="academy-ext-link">أكاديمية النخبة الدولية (ieatd.com)</span>
                     <i data-lucide="external-link" class="w-4 h-4 accent-main"></i>
                 </a>
             </div>
 
-            <div id="academy-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-7"></div>
+            <div id="academy-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 lg:gap-7"></div>
         </section>
 
         <!-- ======================================================================
              8. CLIENT & CONSULTING PORTFOLIO DIRECTORY (15 BRANDS)
         ======================================================================= -->
-        <section id="clients" class="reveal-item py-20 md:py-28 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-hairline">
-            <div class="max-w-2xl mb-10">
+        <section id="clients" class="reveal-item py-14 md:py-28 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-hairline">
+            <div class="max-w-2xl mb-8 md:mb-10">
                 <span id="clients-kicker" class="inline-block px-3 py-1 rounded-full chip-sage text-xs font-bold uppercase tracking-wider">06 / محفظة العلامات التجارية والاستشارات</span>
                 <h2 id="clients-title" class="text-2xl sm:text-4xl font-bold ink-primary mt-3 tracking-tight">شركاء النجاح عبر القطاعات</h2>
                 <p id="clients-subtitle" class="text-sm sm:text-base ink-secondary mt-2">مشاريع استشارية وتنفيذية ممتدة في مصر، سلطنة عُمان، والخليج.</p>
             </div>
 
-            <div id="client-filters" class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-4 mb-8 no-print"></div>
-            <div id="clients-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+            <div id="client-filters" class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-3 mb-6 lg:mb-8 no-print"></div>
+            <div id="clients-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-4"></div>
         </section>
 
         <!-- ======================================================================
              9. TECH ECOSYSTEM & INTERACTIVE EXECUTIVE CONTACT HUB
         ======================================================================= -->
-        <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-hairline">
-            <div class="mb-6">
+        <section class="py-12 md:py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-hairline">
+            <div class="mb-5 md:mb-6">
                 <h3 id="stack-title" class="text-xs font-bold uppercase tracking-widest ink-muted">المنصات الإعلانية، التحليلات، والبنية التقنية</h3>
             </div>
-            <div id="stack-pills" class="flex flex-wrap gap-2.5"></div>
+            <div id="stack-pills" class="flex flex-wrap gap-2 sm:gap-2.5"></div>
         </section>
 
-        <section id="contact" class="py-20 md:py-28 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-hairline no-print">
-            <div class="surface-card rounded-[2.4rem] p-7 sm:p-12 lg:p-14 relative overflow-hidden">
+        <section id="contact" class="py-14 md:py-28 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-hairline no-print">
+            <div class="surface-card rounded-[2rem] sm:rounded-[2.4rem] p-6 sm:p-12 lg:p-14 relative overflow-hidden">
                 <div class="absolute -top-24 -end-24 w-72 h-72 rounded-full pastel-orb-1 blur-3xl pointer-events-none"></div>
 
-                <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
                     <div class="lg:col-span-6 space-y-5">
                         <span id="contact-kicker" class="inline-block px-3.5 py-1 rounded-full chip-accent text-xs font-bold uppercase tracking-wider">تواصل تنفيذي مباشر</span>
                         <h2 id="contact-title" class="text-2xl sm:text-4xl font-bold ink-primary leading-tight">
@@ -679,13 +724,13 @@
                             اختر الهدف من القائمة المقابلة لفتح محادثة واتساب مجهزة مسبقاً، أو تواصل مباشرة عبر الهاتف أو البريد الرسمي. متاح للعمل On-Site أو عن بُعد.
                         </p>
 
-                        <div class="pt-3 grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+                        <div class="pt-2 grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
                             <div class="p-4 rounded-2xl bg-subtle border border-hairline flex items-center justify-between gap-2">
                                 <div>
                                     <div class="text-[11px] font-semibold ink-muted" id="lbl-direct-wa">واتساب مباشر</div>
                                     <a href="https://wa.me/201113277288" target="_blank" rel="noopener noreferrer" dir="ltr" class="font-extrabold ink-primary hover:underline">01113277288</a>
                                 </div>
-                                <button type="button" onclick="copyText('01113277288')" class="w-8 h-8 rounded-xl surface-card flex items-center justify-center ink-secondary hover:ink-primary" aria-label="Copy WhatsApp">
+                                <button type="button" onclick="copyText('01113277288')" class="app-tap w-8 h-8 rounded-xl surface-card flex items-center justify-center ink-secondary hover:ink-primary" aria-label="Copy WhatsApp">
                                     <i data-lucide="copy" class="w-3.5 h-3.5"></i>
                                 </button>
                             </div>
@@ -695,7 +740,7 @@
                                     <div class="text-[11px] font-semibold ink-muted" id="lbl-direct-tel">اتصال هاتفي</div>
                                     <a href="tel:+201061773444" dir="ltr" class="font-extrabold ink-primary hover:underline">01061773444</a>
                                 </div>
-                                <button type="button" onclick="copyText('01061773444')" class="w-8 h-8 rounded-xl surface-card flex items-center justify-center ink-secondary hover:ink-primary" aria-label="Copy Phone">
+                                <button type="button" onclick="copyText('01061773444')" class="app-tap w-8 h-8 rounded-xl surface-card flex items-center justify-center ink-secondary hover:ink-primary" aria-label="Copy Phone">
                                     <i data-lucide="copy" class="w-3.5 h-3.5"></i>
                                 </button>
                             </div>
@@ -709,17 +754,17 @@
                                         <a href="https://www.linkedin.com/in/abdobasic/" target="_blank" rel="noopener noreferrer" class="font-bold accent-main hover:underline">linkedin.com/in/abdobasic</a>
                                     </div>
                                 </div>
-                                <button type="button" onclick="copyText('abdobasic1@gmail.com')" class="w-8 h-8 rounded-xl surface-card flex items-center justify-center ink-secondary hover:ink-primary shrink-0" aria-label="Copy Email">
+                                <button type="button" onclick="copyText('abdobasic1@gmail.com')" class="app-tap w-8 h-8 rounded-xl surface-card flex items-center justify-center ink-secondary hover:ink-primary shrink-0" aria-label="Copy Email">
                                     <i data-lucide="copy" class="w-3.5 h-3.5"></i>
                                 </button>
                             </div>
                         </div>
                     </div>
 
-                    <div class="lg:col-span-6 bg-subtle rounded-3xl p-6 sm:p-8 border border-hairline space-y-5">
+                    <div class="lg:col-span-6 bg-subtle rounded-3xl p-5 sm:p-8 border border-hairline space-y-5">
                         <div class="text-xs font-bold uppercase tracking-wider ink-secondary" id="intent-heading">حدد مسار التعاون المطلوب:</div>
                         <div id="intent-options" class="space-y-3"></div>
-                        <a id="intent-submit-wa" href="https://wa.me/201113277288" target="_blank" rel="noopener noreferrer" class="w-full py-4 px-6 rounded-2xl btn-pastel-primary font-bold text-sm sm:text-base flex items-center justify-center gap-2.5 shadow-sm">
+                        <a id="intent-submit-wa" href="https://wa.me/201113277288" target="_blank" rel="noopener noreferrer" class="app-tap w-full py-4 px-6 rounded-2xl btn-pastel-primary font-bold text-sm sm:text-base flex items-center justify-center gap-2.5 shadow-sm">
                             <span id="intent-btn-label">بدء المحادثة المباشرة عبر واتساب</span>
                             <i data-lucide="arrow-up-left" class="w-4 h-4"></i>
                         </a>
@@ -729,79 +774,114 @@
         </section>
     </main>
 
-    <!-- Minimalist Editorial Footer -->
-    <footer class="py-10 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-hairline flex flex-col sm:flex-row items-center justify-between gap-4 text-xs ink-muted no-print">
+    <!-- Minimalist Editorial Footer (Extra bottom space on mobile for the App Dock) -->
+    <footer class="pt-10 pb-28 lg:pb-10 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-hairline flex flex-col sm:flex-row items-center justify-between gap-4 text-xs ink-muted no-print text-center sm:text-start">
         <p id="footer-copy">© 2026 عبد الله رشاد (Abdullah Rashad). جميع الحقوق محفوظة.</p>
         <p id="footer-avail">On-Site & Remote • مصر • السعودية • الخليج • أوروبا • عالمياً</p>
     </footer>
 
     <!-- ==========================================================================
-         SLIDE-OVER CASE STUDY BLUEPRINT DRAWER
+         MOBILE-ONLY NATIVE WEB APP BOTTOM NAVIGATION DOCK (lg:hidden)
+    =========================================================================== -->
+    <nav id="mobile-app-dock" class="lg:hidden fixed bottom-0 inset-x-0 z-40 glass-capsule border-b-0 border-x-0 rounded-t-[1.6rem] px-2 pt-2 mobile-dock-safe no-print" aria-label="Mobile App Navigation">
+        <div class="max-w-md mx-auto grid grid-cols-5 gap-1 items-center">
+            <a href="#top" data-dock="top" class="dock-item dock-tab-active app-tap py-1.5 px-1 rounded-2xl flex flex-col items-center justify-center gap-1 transition">
+                <i data-lucide="home" class="w-4 h-4"></i>
+                <span id="dock-lbl-home" class="text-[10px] font-bold leading-none">الرئيسية</span>
+            </a>
+            <a href="#simulator" data-dock="simulator" class="dock-item app-tap py-1.5 px-1 rounded-2xl flex flex-col items-center justify-center gap-1 ink-muted transition">
+                <i data-lucide="sliders-horizontal" class="w-4 h-4"></i>
+                <span id="dock-lbl-sim" class="text-[10px] font-semibold leading-none">المحاكي</span>
+            </a>
+            <a href="#cases" data-dock="cases" class="dock-item app-tap py-1.5 px-1 rounded-2xl flex flex-col items-center justify-center gap-1 ink-muted transition">
+                <i data-lucide="briefcase" class="w-4 h-4"></i>
+                <span id="dock-lbl-cases" class="text-[10px] font-semibold leading-none">الحالات</span>
+            </a>
+            <a href="#playbooks" data-dock="playbooks" class="dock-item app-tap py-1.5 px-1 rounded-2xl flex flex-col items-center justify-center gap-1 ink-muted transition">
+                <i data-lucide="layers" class="w-4 h-4"></i>
+                <span id="dock-lbl-sys" class="text-[10px] font-semibold leading-none">المنهجيات</span>
+            </a>
+            <a href="#contact" data-dock="contact" class="dock-item app-tap py-1.5 px-1 rounded-2xl flex flex-col items-center justify-center gap-1 ink-muted transition">
+                <i data-lucide="message-circle" class="w-4 h-4"></i>
+                <span id="dock-lbl-contact" class="text-[10px] font-semibold leading-none">تواصل</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- ==========================================================================
+         CASE STUDY BLUEPRINT: BOTTOM SHEET ON MOBILE / SLIDE-OVER DRAWER ON DESKTOP
     =========================================================================== -->
     <div id="case-drawer" class="fixed inset-0 z-50 hidden no-print" role="dialog" aria-modal="true">
-        <div class="fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity" onclick="closeCaseDrawer()"></div>
-        <div class="fixed inset-y-0 end-0 w-full max-w-2xl surface-solid z-10 flex flex-col shadow-2xl overflow-hidden">
-            <div class="px-6 sm:px-8 py-5 border-b border-hairline flex items-start justify-between gap-4 bg-subtle">
+        <div class="fixed inset-0 bg-black/55 backdrop-blur-sm transition-opacity" onclick="closeCaseDrawer()"></div>
+        <div class="fixed inset-x-0 bottom-0 max-h-[88vh] rounded-t-[2rem] md:rounded-none md:max-h-none md:inset-y-0 md:inset-x-auto md:end-0 w-full md:max-w-2xl surface-solid z-10 flex flex-col shadow-2xl overflow-hidden">
+            <!-- Mobile Sheet Handle -->
+            <div class="pt-3 pb-1 bg-subtle md:hidden flex justify-center" onclick="closeCaseDrawer()">
+                <span class="w-12 h-1.5 rounded-full bg-current opacity-20"></span>
+            </div>
+
+            <div class="px-5 sm:px-8 py-4 sm:py-5 border-b border-hairline flex items-start justify-between gap-4 bg-subtle">
                 <div>
                     <div id="drawer-tag" class="inline-block px-3 py-1 rounded-full text-[11px] font-bold chip-accent"></div>
-                    <h3 id="drawer-title" class="text-xl sm:text-2xl font-bold ink-primary mt-2"></h3>
+                    <h3 id="drawer-title" class="text-lg sm:text-2xl font-bold ink-primary mt-2"></h3>
                 </div>
-                <button type="button" onclick="closeCaseDrawer()" class="w-10 h-10 rounded-xl surface-card flex items-center justify-center ink-primary hover:opacity-75 shrink-0" aria-label="Close">
+                <button type="button" onclick="closeCaseDrawer()" class="app-tap w-9 h-9 sm:w-10 sm:h-10 rounded-xl surface-card flex items-center justify-center ink-primary hover:opacity-75 shrink-0" aria-label="Close">
                     <i data-lucide="x" class="w-5 h-5"></i>
                 </button>
             </div>
 
-            <div class="p-6 sm:p-8 overflow-y-auto flex-1 space-y-6">
-                <div class="p-5 rounded-2xl bg-subtle border border-hairline flex flex-wrap items-center justify-between gap-4">
+            <div class="p-5 sm:p-8 overflow-y-auto flex-1 space-y-5 sm:space-y-6">
+                <div class="p-4 sm:p-5 rounded-2xl bg-subtle border border-hairline flex flex-wrap items-center justify-between gap-3">
                     <div>
                         <div id="drawer-metric-label" class="text-[11px] ink-muted font-bold uppercase tracking-wider">الأثر الرقمي والتجاري</div>
-                        <div id="drawer-metric-val" class="text-lg sm:text-xl font-extrabold accent-main mt-0.5"></div>
+                        <div id="drawer-metric-val" class="text-base sm:text-xl font-extrabold accent-main mt-0.5"></div>
                     </div>
                     <div id="drawer-period" class="px-3 py-1.5 rounded-xl surface-card text-xs ink-secondary font-semibold"></div>
                 </div>
 
-                <div id="drawer-stages" class="space-y-5"></div>
+                <div id="drawer-stages" class="space-y-4 sm:space-y-5"></div>
             </div>
 
-            <div id="drawer-footer" class="px-6 sm:px-8 py-4 border-t border-hairline bg-subtle flex flex-wrap items-center justify-between gap-3"></div>
+            <div id="drawer-footer" class="px-5 sm:px-8 py-4 border-t border-hairline bg-subtle flex flex-wrap items-center justify-between gap-3 mobile-dock-safe"></div>
         </div>
     </div>
 
     <!-- ==========================================================================
-         EXECUTIVE CV & FULL CAREER TIMELINE MODAL
+         EXECUTIVE CV MODAL (BOTTOM SHEET ON MOBILE / CENTERED DIALOG ON DESKTOP)
     =========================================================================== -->
-    <div id="cv-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 no-print" role="dialog" aria-modal="true">
-        <div class="fixed inset-0 bg-black/50 backdrop-blur-sm" onclick="closeCvModal()"></div>
-        <div class="relative z-10 surface-solid rounded-[2rem] max-w-3xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-9 shadow-2xl">
+    <div id="cv-modal" class="fixed inset-0 z-50 hidden items-end sm:items-center justify-center sm:p-4 no-print" role="dialog" aria-modal="true">
+        <div class="fixed inset-0 bg-black/55 backdrop-blur-sm" onclick="closeCvModal()"></div>
+        <div class="relative z-10 surface-solid rounded-t-[2rem] sm:rounded-[2rem] max-w-3xl w-full max-h-[88vh] sm:max-h-[90vh] overflow-y-auto p-5 sm:p-9 shadow-2xl">
+            <div class="w-12 h-1.5 rounded-full bg-subtle border border-hairline mx-auto mb-4 sm:hidden" onclick="closeCvModal()"></div>
+
             <div class="flex items-start justify-between gap-4 pb-5 border-b border-hairline">
                 <div>
                     <span class="inline-block px-3 py-1 rounded-full chip-sky text-[11px] font-bold mb-2">CURRICULUM VITAE</span>
-                    <h3 id="cv-title" class="text-xl sm:text-2xl font-bold ink-primary">الملخص التنفيذي والسيرة الذاتية</h3>
+                    <h3 id="cv-title" class="text-lg sm:text-2xl font-bold ink-primary">الملخص التنفيذي والسيرة الذاتية</h3>
                     <p class="text-xs ink-muted mt-1" dir="ltr">Abdullah Rashad • 01061773444 • WhatsApp: 01113277288 • abdobasic1@gmail.com</p>
                 </div>
-                <button type="button" onclick="closeCvModal()" class="w-9 h-9 rounded-xl bg-subtle flex items-center justify-center ink-primary">
+                <button type="button" onclick="closeCvModal()" class="app-tap w-9 h-9 rounded-xl bg-subtle flex items-center justify-center ink-primary shrink-0">
                     <i data-lucide="x" class="w-4 h-4"></i>
                 </button>
             </div>
 
-            <div id="cv-body" class="py-6 space-y-5 text-sm ink-secondary leading-relaxed"></div>
+            <div id="cv-body" class="py-5 sm:py-6 space-y-5 text-sm ink-secondary leading-relaxed"></div>
 
-            <div class="pt-5 border-t border-hairline flex flex-wrap items-center justify-between gap-3">
-                <div class="flex flex-wrap items-center gap-2.5">
-                    <a href="Abdullah_Rashad_CV.pdf" download="Abdullah_Rashad_CV.pdf" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl btn-pastel-primary text-xs sm:text-sm font-bold">
+            <div class="pt-5 border-t border-hairline flex flex-wrap items-center justify-between gap-3 mobile-dock-safe">
+                <div class="flex flex-wrap items-center gap-2.5 w-full sm:w-auto">
+                    <a href="Abdullah_Rashad_CV.pdf" download="Abdullah_Rashad_CV.pdf" class="app-tap flex-1 sm:flex-initial justify-center inline-flex items-center gap-2 px-5 py-3 rounded-xl btn-pastel-primary text-xs sm:text-sm font-bold">
                         <i data-lucide="download" class="w-4 h-4"></i>
                         <span id="cv-download-label">تحميل السيرة الذاتية (PDF)</span>
                     </a>
-                    <button type="button" onclick="window.print()" class="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-subtle ink-primary text-xs sm:text-sm font-semibold hover:opacity-80">
+                    <button type="button" onclick="window.print()" class="app-tap inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-subtle ink-primary text-xs sm:text-sm font-semibold hover:opacity-80">
                         <i data-lucide="printer" class="w-4 h-4"></i>
                         <span id="cv-print-label">طباعة / حفظ كملف PDF</span>
                     </button>
-                    <a href="https://www.linkedin.com/in/abdobasic/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-subtle ink-primary text-xs sm:text-sm font-semibold hover:opacity-80">
+                    <a href="https://www.linkedin.com/in/abdobasic/" target="_blank" rel="noopener noreferrer" class="app-tap inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-subtle ink-primary text-xs sm:text-sm font-semibold hover:opacity-80">
                         <span>LinkedIn</span>
                         <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
                     </a>
                 </div>
-                <button type="button" onclick="closeCvModal()" id="cv-close-btn" class="px-4 py-2.5 rounded-xl border border-hairline text-xs font-bold ink-secondary hover:ink-primary">
+                <button type="button" onclick="closeCvModal()" id="cv-close-btn" class="hidden sm:inline-block px-4 py-2.5 rounded-xl border border-hairline text-xs font-bold ink-secondary hover:ink-primary">
                     إغلاق
                 </button>
             </div>
@@ -809,7 +889,7 @@
     </div>
 
     <!-- ==========================================================================
-         BILINGUAL STATE, DATA & PORTRAIT SWITCHING ENGINE
+         BILINGUAL STATE, DATA & 3-PORTRAIT DEVICE/LANGUAGE ENGINE
     =========================================================================== -->
     <script>
         let lang = 'ar';
@@ -823,11 +903,43 @@
         let currentDrawerId = null;
         let toastTimer = null;
 
-        // Preload both Arabic & English portraits so language switching is instant
-        ['profile.jpg', 'En_profile.jpg'].forEach(src => {
+        // Preload all 3 device/language portraits for instant zero-flicker switching
+        ['Mobile_profile.jpg', 'profile.jpg', 'En_profile.jpg'].forEach(src => {
             const preloadImg = new Image();
             preloadImg.src = src;
         });
+
+        function isMobileAppViewport() {
+            return window.matchMedia('(max-width: 1023px)').matches;
+        }
+
+        function syncPortraitSource() {
+            const portraitEl = document.getElementById('portrait-img');
+            if (!portraitEl) return;
+            const targetSrc = isMobileAppViewport()
+                ? 'Mobile_profile.jpg'
+                : (lang === 'ar' ? 'profile.jpg' : 'En_profile.jpg');
+
+            if (portraitEl.getAttribute('src') !== targetSrc) {
+                portraitEl.style.display = 'block';
+                const fb = document.getElementById('portrait-fallback');
+                if (fb) fb.style.display = 'none';
+                portraitEl.setAttribute('src', targetSrc);
+            }
+        }
+
+        function handlePortraitError(imgEl) {
+            const cur = imgEl.getAttribute('src') || '';
+            if (cur === 'Mobile_profile.jpg') {
+                imgEl.setAttribute('src', lang === 'ar' ? 'profile.jpg' : 'En_profile.jpg');
+            } else if (cur === 'En_profile.jpg') {
+                imgEl.setAttribute('src', 'profile.jpg');
+            } else {
+                imgEl.style.display = 'none';
+                const fb = document.getElementById('portrait-fallback');
+                if (fb) fb.style.display = 'flex';
+            }
+        }
 
         const pillars = [
             {
@@ -983,16 +1095,21 @@
                 navAcademy: "الأكاديمية",
                 navClients: "شركاء النجاح",
                 navContact: "تواصل مباشر",
-                mobMenuTitle: "القائمة الرئيسية",
+                mobMenuTitle: "إعدادات وأقسام المنصة",
                 mobMoodLbl: "تناغم الباستيل:",
                 mobCallLbl: "اتصال:",
+                dockHome: "الرئيسية",
+                dockSim: "المحاكي",
+                dockCases: "الحالات",
+                dockSys: "المنهجيات",
+                dockContact: "تواصل",
                 langBtn: "EN",
                 heroAvail: "متاح للمناصب القيادية والاستشارات | On-Site أو عن بُعد — مصر، السعودية، الخليج، وعالمياً",
                 heroHeadline: `أبني منظومات التسويق من الصفر، وأحوّل الميزانيات والفرق إلى <span class="accent-main underline decoration-2 underline-offset-8">ماكينات نمو مؤسسية.</span>`,
                 heroSub: "+15 عاماً من القيادة التنفيذية، هندسة التحول التجاري، وتأسيس الفرق الإبداعية والإعلانية عبر قطاعات B2B, B2C, B2G, B2R — مدعومة بخلفية هندسية تأسيسية كمبرمج Java.",
                 heroWa: "واتساب:",
                 heroCall: "اتصال:",
-                heroCv: "السيرة الذاتية والملخص",
+                heroCv: "السيرة الذاتية",
                 captionName: "عبد الله رشاد",
                 captionSub: "خلفية برمجية (Java) + قيادة تسويقية شاملة",
                 m1: "عاماً من القيادة التسويقية وبناء العلامات من الصفر",
@@ -1052,16 +1169,21 @@
                 navAcademy: "Team Academy",
                 navClients: "Client Ecosystem",
                 navContact: "Direct Contact",
-                mobMenuTitle: "Navigation",
+                mobMenuTitle: "App Settings & Directory",
                 mobMoodLbl: "Pastel Aura:",
                 mobCallLbl: "Call:",
+                dockHome: "Home",
+                dockSim: "Lab",
+                dockCases: "Cases",
+                dockSys: "Systems",
+                dockContact: "Contact",
                 langBtn: "عربي",
                 heroAvail: "Available for Senior Leadership & Advisory — On-Site or Remote across Egypt, Saudi Arabia, Gulf & Globally",
                 heroHeadline: `Engineering Marketing Ecosystems from Zero—Turning Budgets & Teams into <span class="accent-main underline decoration-2 underline-offset-8">Institutional Growth Engines.</span>`,
                 heroSub: "15+ years of executive marketing leadership, commercial turnarounds, and building high-converting creative & media teams across B2B, B2C, B2G & B2R—backed by a Java software engineering foundation.",
                 heroWa: "WhatsApp:",
                 heroCall: "Call:",
-                heroCv: "Executive Summary & CV",
+                heroCv: "CV & Bio",
                 captionName: "Abdullah Rashad",
                 captionSub: "Java Engineering Background + Full-Stack Marketing Leadership",
                 m1: "Years Leading Marketing & Ground-Up Brand Building",
@@ -1662,7 +1784,7 @@
         ];
 
         // ======================================================================
-        // CORE RENDER ENGINE (WITH BILINGUAL PORTRAIT SWAP)
+        // CORE RENDER ENGINE (WITH 3-PORTRAIT DEVICE + LANGUAGE SWAP)
         // ======================================================================
         function renderHub() {
             const isAr = lang === 'ar';
@@ -1671,17 +1793,7 @@
             document.documentElement.lang = isAr ? 'ar' : 'en';
             document.documentElement.dir = isAr ? 'rtl' : 'ltr';
 
-            // Dynamically switch portrait to match reading direction eye-gaze
-            const portraitEl = document.getElementById('portrait-img');
-            if (portraitEl) {
-                const targetSrc = isAr ? 'profile.jpg' : 'En_profile.jpg';
-                if (portraitEl.getAttribute('src') !== targetSrc) {
-                    portraitEl.style.display = 'block';
-                    const fb = document.getElementById('portrait-fallback');
-                    if (fb) fb.style.display = 'none';
-                    portraitEl.setAttribute('src', targetSrc);
-                }
-            }
+            syncPortraitSource();
 
             const bindText = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
             bindText('nav-name', t.navName);
@@ -1703,8 +1815,13 @@
             bindText('mob-playbooks', t.navPlaybooks);
             bindText('mob-academy', t.navAcademy);
             bindText('mob-clients', t.navClients);
-            bindText('mob-contact', t.navContact);
             bindText('mob-call-lbl', t.mobCallLbl);
+
+            bindText('dock-lbl-home', t.dockHome);
+            bindText('dock-lbl-sim', t.dockSim);
+            bindText('dock-lbl-cases', t.dockCases);
+            bindText('dock-lbl-sys', t.dockSys);
+            bindText('dock-lbl-contact', t.dockContact);
 
             bindText('lang-btn-text', t.langBtn);
             bindText('hero-availability', t.heroAvail);
@@ -1765,7 +1882,7 @@
             const pillarsEl = document.getElementById('pillars-container');
             if (pillarsEl) {
                 pillarsEl.innerHTML = pillars.map(p => `
-                    <div class="surface-card surface-interactive rounded-[2rem] p-7 md:p-8 relative overflow-hidden flex flex-col justify-between">
+                    <div class="surface-card surface-interactive rounded-[1.75rem] md:rounded-[2rem] p-6 md:p-8 relative overflow-hidden flex flex-col justify-between">
                         <span class="watermark-idx absolute -top-2 end-4 text-7xl font-extrabold">${p.num}</span>
                         <div class="relative z-10">
                             <div class="flex items-center justify-between gap-2">
@@ -1774,8 +1891,8 @@
                                     <i data-lucide="${p.icon}" class="w-4 h-4"></i>
                                 </span>
                             </div>
-                            <h3 class="text-xl font-bold ink-primary mt-5">${isAr ? p.arTitle : p.enTitle}</h3>
-                            <p class="text-sm ink-secondary mt-3 leading-relaxed">${isAr ? p.arDesc : p.enDesc}</p>
+                            <h3 class="text-lg md:text-xl font-bold ink-primary mt-4 md:mt-5">${isAr ? p.arTitle : p.enTitle}</h3>
+                            <p class="text-sm ink-secondary mt-2.5 md:mt-3 leading-relaxed">${isAr ? p.arDesc : p.enDesc}</p>
                         </div>
                     </div>
                 `).join('');
@@ -1809,8 +1926,8 @@
             tabsEl.innerHTML = simScenarios.map((sc, i) => {
                 const active = i === activeSimIdx;
                 return `
-                    <button type="button" onclick="selectSimScenario(${i})" class="p-4 rounded-2xl text-start transition flex items-center justify-between gap-2 ${active ? sc.chip + ' font-bold shadow-sm scale-[1.01]' : 'bg-subtle border border-hairline ink-secondary hover:ink-primary'}">
-                        <span class="text-xs sm:text-sm">${isAr ? sc.arTab : sc.enTab}</span>
+                    <button type="button" onclick="selectSimScenario(${i})" class="app-tap shrink-0 sm:shrink p-3.5 sm:p-4 rounded-2xl text-start transition flex items-center justify-between gap-3 ${active ? sc.chip + ' font-bold shadow-sm sm:scale-[1.01]' : 'bg-subtle border border-hairline ink-secondary hover:ink-primary'}">
+                        <span class="text-xs sm:text-sm whitespace-nowrap sm:whitespace-normal">${isAr ? sc.arTab : sc.enTab}</span>
                         <span class="text-xs opacity-75">0${i + 1}</span>
                     </button>
                 `;
@@ -1821,7 +1938,7 @@
 
             stageEl.innerHTML = `
                 <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div class="p-6 rounded-3xl bg-subtle border border-hairline flex flex-col justify-between">
+                    <div class="p-5 sm:p-6 rounded-3xl bg-subtle border border-hairline flex flex-col justify-between">
                         <div>
                             <span class="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider ink-muted">
                                 <span class="w-2 h-2 rounded-full bg-rose-400"></span>
@@ -1829,12 +1946,12 @@
                             </span>
                             <p class="text-sm ink-secondary mt-3 leading-relaxed">${isAr ? sc.arBottleneck : sc.enBottleneck}</p>
                         </div>
-                        <div class="mt-5 pt-3 border-t border-hairline text-[11px] ink-muted font-medium">
+                        <div class="mt-4 sm:mt-5 pt-3 border-t border-hairline text-[11px] ink-muted font-medium">
                             ${isAr ? 'المرحلة 01 — التشخيص الجذري' : 'Phase 01 — Root Diagnosis'}
                         </div>
                     </div>
 
-                    <div class="p-6 rounded-3xl surface-solid border border-hairline flex flex-col justify-between">
+                    <div class="p-5 sm:p-6 rounded-3xl surface-solid border border-hairline flex flex-col justify-between">
                         <div>
                             <span class="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider accent-main">
                                 <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
@@ -1842,13 +1959,13 @@
                             </span>
                             <p class="text-sm ink-primary font-medium mt-3 leading-relaxed">${isAr ? sc.arEngine : sc.enEngine}</p>
                         </div>
-                        <div class="mt-5 pt-3 border-t border-hairline text-[11px] accent-main font-semibold">
+                        <div class="mt-4 sm:mt-5 pt-3 border-t border-hairline text-[11px] accent-main font-semibold">
                             ${isAr ? 'المرحلة 02 — هندسة المنظومة' : 'Phase 02 — System Engineering'}
                         </div>
                     </div>
                 </div>
 
-                <div class="lg:col-span-5 p-6 sm:p-7 rounded-3xl ${sc.chip} flex flex-col justify-between">
+                <div class="lg:col-span-5 p-5 sm:p-7 rounded-3xl ${sc.chip} flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between gap-2">
                             <span class="text-xs font-bold uppercase tracking-wider opacity-85">${isAr ? sc.arResultTitle : sc.enResultTitle}</span>
@@ -1873,10 +1990,10 @@
                     </div>
 
                     <div class="mt-6 pt-4 border-t border-current/15 flex flex-wrap items-center gap-2.5">
-                        <button type="button" onclick="openCaseDrawer('${sc.caseId}')" class="px-4 py-2.5 rounded-xl bg-white/85 dark:bg-black/45 text-xs font-extrabold ink-primary hover:opacity-90 transition">
+                        <button type="button" onclick="openCaseDrawer('${sc.caseId}')" class="app-tap flex-1 sm:flex-initial px-4 py-2.5 rounded-xl bg-white/85 dark:bg-black/45 text-xs font-extrabold ink-primary hover:opacity-90 transition">
                             ${t.simOpenCase}
                         </button>
-                        <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 rounded-xl btn-ink text-xs font-bold">
+                        <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="app-tap flex-1 sm:flex-initial text-center px-4 py-2.5 rounded-xl btn-ink text-xs font-bold">
                             ${t.simAskWa}
                         </a>
                     </div>
@@ -1898,7 +2015,7 @@
                 filtersEl.innerHTML = caseCategories.map(c => {
                     const active = activeCaseCat === c.id;
                     return `
-                        <button type="button" onclick="setCaseCat('${c.id}')" class="shrink-0 px-4 py-2.5 rounded-full text-xs sm:text-sm font-bold transition ${active ? 'chip-accent shadow-sm' : 'surface-card ink-secondary hover:ink-primary'}">
+                        <button type="button" onclick="setCaseCat('${c.id}')" class="app-tap shrink-0 px-4 py-2.5 rounded-full text-xs sm:text-sm font-bold transition ${active ? 'chip-accent shadow-sm' : 'surface-card ink-secondary hover:ink-primary'}">
                             ${isAr ? c.ar : c.en}
                         </button>
                     `;
@@ -1933,7 +2050,7 @@
             }
 
             gridEl.innerHTML = list.map(cs => `
-                <article onclick="openCaseDrawer('${cs.id}')" class="cursor-pointer surface-card surface-interactive rounded-[2rem] p-7 md:p-8 flex flex-col justify-between group relative overflow-hidden">
+                <article onclick="openCaseDrawer('${cs.id}')" class="cursor-pointer surface-card surface-interactive rounded-[1.75rem] md:rounded-[2rem] p-6 md:p-8 flex flex-col justify-between group relative overflow-hidden">
                     <span class="watermark-idx absolute -top-2 end-5 text-7xl font-extrabold">${cs.idx}</span>
 
                     <div class="relative z-10">
@@ -1941,7 +2058,7 @@
                             ${isAr ? cs.badgeAr : cs.badgeEn}
                         </span>
 
-                        <h3 class="text-xl sm:text-2xl font-bold ink-primary mt-4 group-hover:accent-main transition">
+                        <h3 class="text-lg sm:text-2xl font-bold ink-primary mt-3.5 md:mt-4 group-hover:accent-main transition">
                             ${isAr ? cs.titleAr : cs.titleEn}
                         </h3>
 
@@ -1949,17 +2066,17 @@
                             ${isAr ? cs.roleAr : cs.roleEn} • ${isAr ? cs.periodAr : cs.periodEn}
                         </div>
 
-                        <div class="mt-5 p-3.5 rounded-2xl bg-subtle border border-hairline flex flex-wrap items-center justify-between gap-2 text-xs">
+                        <div class="mt-4 md:mt-5 p-3.5 rounded-2xl bg-subtle border border-hairline flex flex-wrap items-center justify-between gap-2 text-xs">
                             <span class="ink-muted line-through decoration-rose-400/60">${isAr ? cs.beforeAr : cs.beforeEn}</span>
                             <span class="font-extrabold accent-main">${isAr ? '←' : '→'} ${isAr ? cs.afterAr : cs.afterEn}</span>
                         </div>
 
-                        <p class="text-sm ink-secondary mt-4 leading-relaxed">
+                        <p class="text-sm ink-secondary mt-3.5 md:mt-4 leading-relaxed">
                             ${isAr ? cs.hookAr : cs.hookEn}
                         </p>
                     </div>
 
-                    <div class="relative z-10 mt-6 pt-4 border-t border-hairline flex items-center justify-between text-xs sm:text-sm font-bold accent-main">
+                    <div class="relative z-10 mt-5 md:mt-6 pt-4 border-t border-hairline flex items-center justify-between text-xs sm:text-sm font-bold accent-main">
                         <span>${t.exploreCaseBtn}</span>
                         <span class="w-8 h-8 rounded-xl ${cs.chip} flex items-center justify-center transition-transform group-hover:scale-110">
                             ${isAr ? '←' : '→'}
@@ -1996,11 +2113,11 @@
             tabsEl.innerHTML = playbooks.map((pb, idx) => {
                 const active = idx === activePlaybookIdx;
                 return `
-                    <button type="button" onclick="selectPlaybook(${idx})" class="w-full text-start p-5 rounded-3xl border transition flex items-start gap-4 ${active ? 'surface-card border-strong shadow-sm scale-[1.01]' : 'bg-subtle border-transparent opacity-80 hover:opacity-100'}">
+                    <button type="button" onclick="selectPlaybook(${idx})" class="app-tap snap-start shrink-0 w-[78vw] max-w-[300px] lg:w-full lg:max-w-none text-start p-4 lg:p-5 rounded-3xl border transition flex items-start gap-3.5 lg:gap-4 ${active ? 'surface-card border-strong shadow-sm lg:scale-[1.01]' : 'bg-subtle border-transparent opacity-80 hover:opacity-100'}">
                         <span class="text-xs font-extrabold px-3 py-1.5 rounded-xl shrink-0 ${active ? pb.chip : 'surface-card ink-muted'}">${pb.num}</span>
-                        <div>
-                            <div class="text-[11px] font-semibold ink-muted">${isAr ? pb.tagAr : pb.tagEn}</div>
-                            <div class="text-sm sm:text-base font-bold ink-primary mt-1 leading-snug">${isAr ? pb.titleAr : pb.titleEn}</div>
+                        <div class="min-w-0">
+                            <div class="text-[11px] font-semibold ink-muted truncate">${isAr ? pb.tagAr : pb.tagEn}</div>
+                            <div class="text-xs sm:text-base font-bold ink-primary mt-1 leading-snug line-clamp-2 lg:line-clamp-none">${isAr ? pb.titleAr : pb.titleEn}</div>
                         </div>
                     </button>
                 `;
@@ -2016,7 +2133,7 @@
                     <div class="flex flex-wrap items-center justify-between gap-3 pb-5 border-b border-hairline">
                         <div>
                             <span class="inline-block px-3 py-1 rounded-full ${pb.chip} text-xs font-bold">${isAr ? pb.tagAr : pb.tagEn}</span>
-                            <h3 class="text-xl sm:text-2xl font-bold ink-primary mt-2.5">${isAr ? pb.titleAr : pb.titleEn}</h3>
+                            <h3 class="text-lg sm:text-2xl font-bold ink-primary mt-2.5">${isAr ? pb.titleAr : pb.titleEn}</h3>
                         </div>
                         <span class="px-3.5 py-1.5 rounded-full bg-subtle border border-hairline text-xs font-extrabold ink-primary" dir="ltr">${pb.kpiHighlight}</span>
                     </div>
@@ -2029,7 +2146,7 @@
                         ${steps.map((_, sIdx) => {
                             const isSel = sIdx === activePlaybookStep;
                             return `
-                                <button type="button" onclick="focusPlaybookStep(${sIdx})" class="px-3 py-1.5 rounded-xl text-xs font-bold transition shrink-0 ${isSel ? pb.chip : 'bg-subtle ink-muted hover:ink-primary'}">
+                                <button type="button" onclick="focusPlaybookStep(${sIdx})" class="app-tap px-3 py-1.5 rounded-xl text-xs font-bold transition shrink-0 ${isSel ? pb.chip : 'bg-subtle ink-muted hover:ink-primary'}">
                                     ${isAr ? 'الركيزة ' + (sIdx + 1) : 'Pillar 0' + (sIdx + 1)}
                                 </button>
                             `;
@@ -2040,12 +2157,12 @@
                         ${steps.map((s, i) => {
                             const isFocused = i === activePlaybookStep;
                             return `
-                                <div onclick="focusPlaybookStep(${i})" class="cursor-pointer p-5 rounded-2xl border transition ${isFocused ? pb.chip + ' shadow-sm' : 'bg-subtle border-hairline hover:border-strong'}">
+                                <div onclick="focusPlaybookStep(${i})" class="cursor-pointer p-4 sm:p-5 rounded-2xl border transition ${isFocused ? pb.chip + ' shadow-sm' : 'bg-subtle border-hairline hover:border-strong'}">
                                     <div class="flex items-center gap-2.5">
                                         <span class="w-6 h-6 rounded-full surface-solid text-xs font-extrabold ink-primary flex items-center justify-center shrink-0">${i + 1}</span>
                                         <h4 class="font-bold text-sm sm:text-base ink-primary">${s.step}</h4>
                                     </div>
-                                    <p class="text-sm ${isFocused ? 'ink-primary' : 'ink-secondary'} mt-2.5 leading-relaxed ps-8">${s.detail}</p>
+                                    <p class="text-sm ${isFocused ? 'ink-primary' : 'ink-secondary'} mt-2.5 leading-relaxed sm:ps-8">${s.detail}</p>
                                 </div>
                             `;
                         }).join('')}
@@ -2071,7 +2188,7 @@
             if (!el) return;
 
             el.innerHTML = academyTracks.map(tr => `
-                <div class="surface-card surface-interactive rounded-[2rem] p-7 md:p-8 relative overflow-hidden">
+                <div class="surface-card surface-interactive rounded-[1.75rem] md:rounded-[2rem] p-6 md:p-8 relative overflow-hidden">
                     <span class="watermark-idx absolute -top-2 end-5 text-7xl font-extrabold">${tr.num}</span>
                     <div class="relative z-10">
                         <div class="flex items-center justify-between gap-2">
@@ -2096,7 +2213,7 @@
             filtersEl.innerHTML = clientCats.map(c => {
                 const active = activeClientCat === c.id;
                 return `
-                    <button type="button" onclick="setClientCat('${c.id}')" class="shrink-0 px-4 py-2 rounded-full text-xs sm:text-sm font-bold transition ${active ? 'chip-accent shadow-sm' : 'surface-card ink-secondary hover:ink-primary'}">
+                    <button type="button" onclick="setClientCat('${c.id}')" class="app-tap shrink-0 px-4 py-2 rounded-full text-xs sm:text-sm font-bold transition ${active ? 'chip-accent shadow-sm' : 'surface-card ink-secondary hover:ink-primary'}">
                         ${isAr ? c.ar : c.en}
                     </button>
                 `;
@@ -2110,7 +2227,7 @@
 
                 if (cl.archived) {
                     return `
-                        <div class="surface-card rounded-2xl p-5 flex items-center justify-between gap-3">
+                        <div class="surface-card rounded-2xl p-4 sm:p-5 flex items-center justify-between gap-3">
                             <div class="min-w-0">
                                 <div class="flex items-center gap-2">
                                     <span class="w-2.5 h-2.5 rounded-full bg-pink-500 shrink-0"></span>
@@ -2126,7 +2243,7 @@
                 }
 
                 return `
-                    <a href="${cl.url}" target="_blank" rel="noopener noreferrer" class="surface-card surface-interactive rounded-2xl p-5 flex items-center justify-between gap-3 group">
+                    <a href="${cl.url}" target="_blank" rel="noopener noreferrer" class="surface-card surface-interactive rounded-2xl p-4 sm:p-5 flex items-center justify-between gap-3 group">
                         <div class="min-w-0 flex items-start gap-3">
                             <span class="mt-1 w-2.5 h-2.5 rounded-full ${cl.chip} shrink-0"></span>
                             <div class="min-w-0">
@@ -2153,7 +2270,7 @@
             const el = document.getElementById('stack-pills');
             if (!el) return;
             el.innerHTML = techStack.map(item => `
-                <span class="px-4 py-2 rounded-full ${item.chip} text-xs sm:text-sm font-semibold transition hover:scale-105">${item.label}</span>
+                <span class="px-3.5 sm:px-4 py-2 rounded-full ${item.chip} text-xs sm:text-sm font-semibold transition hover:scale-105">${item.label}</span>
             `).join('');
         }
 
@@ -2165,7 +2282,7 @@
             el.innerHTML = contactIntents.map((it, idx) => {
                 const active = idx === activeIntentIdx;
                 return `
-                    <button type="button" onclick="selectIntent(${idx})" class="w-full text-start p-4 rounded-2xl border transition flex items-start gap-3 ${active ? 'surface-solid border-strong shadow-sm' : 'border-hairline hover:border-strong opacity-80 hover:opacity-100'}">
+                    <button type="button" onclick="selectIntent(${idx})" class="app-tap w-full text-start p-4 rounded-2xl border transition flex items-start gap-3 ${active ? 'surface-solid border-strong shadow-sm' : 'border-hairline hover:border-strong opacity-80 hover:opacity-100'}">
                         <span class="mt-1 w-4 h-4 rounded-full border flex items-center justify-center shrink-0 ${active ? 'border-sky-400' : 'border-strong'}">
                             ${active ? '<span class="w-2 h-2 rounded-full bg-sky-400"></span>' : ''}
                         </span>
@@ -2206,8 +2323,8 @@
 
             const stages = isAr ? cs.stagesAr : cs.stagesEn;
             document.getElementById('drawer-stages').innerHTML = stages.map(st => `
-                <div class="p-5 rounded-2xl bg-subtle border border-hairline">
-                    <h4 class="font-bold text-base ink-primary">${st.title}</h4>
+                <div class="p-4 sm:p-5 rounded-2xl bg-subtle border border-hairline">
+                    <h4 class="font-bold text-sm sm:text-base ink-primary">${st.title}</h4>
                     <div class="text-sm sm:text-base ink-secondary mt-2 leading-relaxed">${st.body}</div>
                 </div>
             `).join('');
@@ -2215,20 +2332,20 @@
             document.getElementById('drawer-footer').innerHTML = `
                 <div class="flex flex-wrap items-center gap-2">
                     ${cs.links.map(l => `
-                        <a href="${l.url}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl btn-pastel-primary text-xs font-bold">
+                        <a href="${l.url}" target="_blank" rel="noopener noreferrer" class="app-tap inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-2.5 rounded-xl btn-pastel-primary text-xs font-bold">
                             <span>${isAr ? l.ar : l.en}</span>
                             <span>↗</span>
                         </a>
                     `).join('')}
                 </div>
                 <div class="flex items-center gap-2">
-                    <button type="button" onclick="openCaseDrawer('${prevCs.id}')" class="px-3.5 py-2 rounded-xl surface-card text-xs font-bold ink-secondary hover:ink-primary">
+                    <button type="button" onclick="openCaseDrawer('${prevCs.id}')" class="app-tap px-3.5 py-2 rounded-xl surface-card text-xs font-bold ink-secondary hover:ink-primary">
                         ${t.drawerPrev}
                     </button>
-                    <button type="button" onclick="openCaseDrawer('${nextCs.id}')" class="px-3.5 py-2 rounded-xl surface-card text-xs font-bold ink-secondary hover:ink-primary">
+                    <button type="button" onclick="openCaseDrawer('${nextCs.id}')" class="app-tap px-3.5 py-2 rounded-xl surface-card text-xs font-bold ink-secondary hover:ink-primary">
                         ${t.drawerNext}
                     </button>
-                    <button type="button" onclick="closeCaseDrawer()" class="px-4 py-2 rounded-xl btn-ink text-xs font-bold">
+                    <button type="button" onclick="closeCaseDrawer()" class="app-tap px-4 py-2 rounded-xl btn-ink text-xs font-bold">
                         ${t.drawerClose}
                     </button>
                 </div>
@@ -2339,6 +2456,8 @@
             const sun = document.getElementById('icon-sun');
             if (moon) moon.classList.toggle('hidden', themeName === 'dark');
             if (sun) sun.classList.toggle('hidden', themeName === 'light');
+            const metaTheme = document.getElementById('meta-theme-color');
+            if (metaTheme) metaTheme.setAttribute('content', themeName === 'dark' ? '#0C0F14' : '#FAF8F4');
         }
 
         function toggleTheme() {
@@ -2387,7 +2506,35 @@
             document.body.removeChild(ta);
         }
 
+        function updateMobileDockActive() {
+            const sections = ['contact', 'playbooks', 'cases', 'simulator'];
+            let activeKey = 'top';
+            const offset = window.scrollY + (window.innerHeight * 0.35);
+
+            for (const id of sections) {
+                const sec = document.getElementById(id);
+                if (sec && offset >= sec.offsetTop) {
+                    activeKey = id;
+                    break;
+                }
+            }
+
+            document.querySelectorAll('#mobile-app-dock .dock-item').forEach(link => {
+                const isMatch = link.getAttribute('data-dock') === activeKey;
+                link.classList.toggle('dock-tab-active', isMatch);
+                link.classList.toggle('ink-muted', !isMatch);
+            });
+        }
+
         function initInteractivePhysics() {
+            // Listen for viewport breakpoint switch between Mobile (<1024px) & Desktop (>=1024px)
+            const mq = window.matchMedia('(max-width: 1023px)');
+            if (mq.addEventListener) {
+                mq.addEventListener('change', syncPortraitSource);
+            } else if (mq.addListener) {
+                mq.addListener(syncPortraitSource);
+            }
+
             window.addEventListener('mousemove', (e) => {
                 document.documentElement.style.setProperty('--mx', e.clientX + 'px');
                 document.documentElement.style.setProperty('--my', e.clientY + 'px');
@@ -2398,6 +2545,7 @@
                 const pct = docH > 0 ? Math.min(100, Math.max(0, (window.scrollY / docH) * 100)) : 0;
                 const bar = document.getElementById('scroll-progress');
                 if (bar) bar.style.width = pct + '%';
+                updateMobileDockActive();
             }, { passive: true });
 
             if ('IntersectionObserver' in window) {
